@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sq =  require('../config/connection');
-const users = require('./usersModel')
+// const users = require('./usersModel')
+const karyawan = require('./karyawanModel')
 const menu = require('./menuModel')
 
 const temporary = sq.define('temporary',{
@@ -39,11 +40,11 @@ const temporary = sq.define('temporary',{
 paranoid:true
 });
 
-temporary.belongsTo(users)
-users.hasMany(temporary)
+temporary.belongsTo(karyawan)
+karyawan.hasMany(temporary)
 
 temporary.belongsTo(menu)
-menu.hasMany(users)
+menu.hasMany(temporary)
 
 
 temporary.sync({ alter: true })
