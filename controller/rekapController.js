@@ -1,13 +1,13 @@
-const temporary = require('../model/temporaryModel')
-const menu= require('../model/menuModel')
+const rekap = require('../model/rekapModel')
+const nota= require('../model/notaModel')
 
 
 class Controller{
 
     static register(req, res){
-        const {menuId,karyawanId,mejaId,harga,jenis,jumlah,atasNama}= req.body
+        const {notaId,namaMenu,harga,jumlah}= req.body
         const totalHarga= harga*jumlah
-        temporary.create({menuId:menuId,karyawanId:karyawanId,totalHarga:totalHarga,jenis:jenis,mejaId:mejaId,jumlah:jumlah,atasNama:atasNama}, {returning: true}).then(respon =>{
+        rekap.create({notaId:notaId,namaMenu:namaMenu,jumlah:jumlah,totalHarga:totalHarga}, {returning: true}).then(respon =>{
         res.json(respon)
          })
         .catch(err=>{
@@ -21,7 +21,7 @@ class Controller{
         for(let i = 0;i<req.body.length;i++){
            req.body[i].totalHarga= await req.body[i].harga * req.body[i].jumlah
         }
-            temporary.bulkCreate(req.body,{returning:true})
+            rekap.bulkCreate(req.body,{returning:true})
         .then(hasil=>{
             res.json('INPUT DATA SUKSES')
         })
@@ -29,7 +29,7 @@ class Controller{
     
     static list(req,res){
         const{id}=req.params
-        temporary.findAll({
+        rekap.findAll({
             include:[menu],
             where:{
                 id :id
@@ -43,27 +43,11 @@ class Controller{
         })
     }
 
-    static listByJenis(req,res){
-        const{jenis}=req.params
-        temporary.findAll({
-            include:[menu],
-            where:{
-                jenis:jenis,
-                status:0
-            }
-        })
-        .then(respon=>{
-            res.json({respon})
-        })
-        .catch(err=>{
-            res.json(err)
-        })
-    }
 
     static all(req,res){
         
-        temporary.findAll({
-            sort:[['namaMenu','ASC']]
+        rekap.findAll({
+            sort:[['id','ASC']]
         })
         .then(respon=>{
             res.json({respon})
@@ -75,14 +59,14 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {menuId,harga,jenis,mejaId,jumlah,atasNama}= req.body
+        const {notaId,namaMenu,harga,jumlah}= req.body
         
-        temporary.update({
-            menuId:menuId,
+        rekap.update({
+            notaId:notaId,
             totalHarga:harga*jumlah,
-            jenis:jenis,
-            mejaId:mejaId,
-            atasNama:atasNama
+            namaMenu:namaMenu,
+            jumlah:jumlah
+            
         },{
             where :{
                 id:id
@@ -101,7 +85,7 @@ class Controller{
 
     static delete(req,res){
         const{id}= req.params
-        menu.destroy({
+        rekap.destroy({
             where : {
                 id: id
             }
@@ -114,24 +98,7 @@ class Controller{
         })
     }
 
-    // static history(req,res){
-
-    //     makanan.findAll(
-    //     { 
-    //         include:[{model:pesanan,
-    //             required:false,
-    //         where:{
-    //             karyawanId:req.dataUser.id,     
-    //         }}]
-            
-    //     })
-    //     .then(respon=>{
-    //         res.json({respon})
-    //     })
-    //     .catch(err=>{
-    //         res.json(err)
-    //     })
-    // }
+    
 
     
 

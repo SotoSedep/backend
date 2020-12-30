@@ -2,6 +2,22 @@ const karyawan = require('../model/karyawanModel')
 const bcrypt = require('../helper/bcrypt')
 const jwt = require('../helper/jwt')
 
+function createAdmin() {
+    let adminpass = bcrypt.hashPassword("soto1234")
+    karyawan.findOrCreate({
+
+        where: {
+            username: "admin"
+        },
+        defaults: {
+            password: adminpass,
+            role : "admin"
+        }
+    })
+}
+
+createAdmin()
+
 class Controller{
     
     static register(req, res){
@@ -30,7 +46,6 @@ class Controller{
       }
 
       static login(req,res){
-          console.log(req.body)
         const{username,password}= req.body
         karyawan.findAll({
             where:{
@@ -41,7 +56,7 @@ class Controller{
             if(data.length){
         let hasil =  bcrypt.compare(password, data[0].dataValues.password);
                 if(hasil){
-                    res.json({token : jwt.generateToken(data[0].dataValues)})
+                    res.json([{token : jwt.generateToken(data[0].dataValues)},{id:data[0].id}])
                 }
                 else{
                     res.json({message : "password salah"})
@@ -54,7 +69,7 @@ class Controller{
         })
     }
 
-    static profil(req,res){
+    static profile(req,res){
         const {id} = req.params
         karyawan.findAll({
             where:{
@@ -63,6 +78,63 @@ class Controller{
         },{returning:true})
         .then(respon=>{
             res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    // static profil(req,res){
+    //     const {id} = req.dataKaryawan
+    //     karyawan.findAll({
+    //         where:{
+    //             id :id
+    //         }
+    //     },{returning:true})
+    //     .then(respon=>{
+    //         res.json({respon})
+    //     })
+    //     .catch(err=>{
+    //         res.json(err)
+    //     })
+    // }
+
+    static update(req,res){
+        const {id} = req.params
+        const {password,nama,alamat,role,handphone}= req.body
+        
+        karyawan.update({
+            password:password,
+            nama:nama,
+            alamat:alamat,
+            handphone:handphone,
+            role:role
+
+        },{
+            where :{
+                id:id
+            },
+            returning: true,
+            plain:true
+        })
+        .then(respon=>{
+            res.json(respon)
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+
+    }
+
+    static delete(req,res){
+        const{id}= req.params
+        karyawan.destroy({
+            where : {
+                id: id
+            }
+        }).then(respon=>{
+            res.json(`berhasil delete id : ${id}`)
+            
         })
         .catch(err=>{
             res.json(err)
