@@ -5,9 +5,9 @@ const menu= require('../model/menuModel')
 class Controller{
 
     static register(req, res){
-        const {menuId,userId,harga,jenis,nomorMeja,jumlah,atasNama}= req.body
+        const {menuId,karyawanId,harga,jenis,nomorMeja,jumlah,atasNama}= req.body
         const totalHarga= harga*jumlah
-        temporary.create({menuId:menuId,userId:userId,totalHarga:totalHarga,jenis:jenis,nomorMeja:nomorMeja,jumlah:jumlah,atasNama:atasNama}, {returning: true}).then(respon =>{
+        temporary.create({menuId:menuId,karyawanId:karyawanId,totalHarga:totalHarga,jenis:jenis,nomorMeja:nomorMeja,jumlah:jumlah,atasNama:atasNama}, {returning: true}).then(respon =>{
         res.json(respon)
          })
         .catch(err=>{
@@ -121,7 +121,7 @@ class Controller{
     //         include:[{model:pesanan,
     //             required:false,
     //         where:{
-    //             userId:req.dataUser.id,     
+    //             karyawanId:req.dataUser.id,     
     //         }}]
             
     //     })

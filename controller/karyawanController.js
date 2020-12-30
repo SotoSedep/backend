@@ -1,14 +1,15 @@
-const users = require('../model/usersModel')
+const karyawan = require('../model/karyawanModel')
 const bcrypt = require('../helper/bcrypt')
 const jwt = require('../helper/jwt')
 
 class Controller{
+    
     static register(req, res){
         console.log(req.body)
         const {username,password,nama,alamat,role,handphone}= req.body
         
         let encryptedPassword = bcrypt.hashPassword(password)
-        users.findAll({
+        karyawan.findAll({
             where:{
                 username:username
             }
@@ -18,7 +19,7 @@ class Controller{
             }
             else{
                 
-                users.create({username:username, password:encryptedPassword,nama:nama,alamat:alamat,role:role,handphone:handphone}, {returning: true}).then(respon =>{
+                karyawan.create({username:username, password:encryptedPassword,nama:nama,alamat:alamat,role:role,handphone:handphone}, {returning: true}).then(respon =>{
                 res.json(respon)
              })
              .catch(err=>{
@@ -29,9 +30,9 @@ class Controller{
       }
 
       static login(req,res){
+          console.log(req.body)
         const{username,password}= req.body
-
-        users.findAll({
+        karyawan.findAll({
             where:{
                 username:username
             }
@@ -50,6 +51,21 @@ class Controller{
         })
         .catch(err=>{
             res.json({message : err})
+        })
+    }
+
+    static profil(req,res){
+        const {id} = req.params
+        karyawan.findAll({
+            where:{
+                id :id
+            }
+        },{returning:true})
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
         })
     }
 }

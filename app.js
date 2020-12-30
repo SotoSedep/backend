@@ -12,7 +12,7 @@ app.use(express.json())
 
 app.use('/', routing)
 
-const port = 3000
+const port = 3005
  app.listen(port, () => {
    console.log(`telah tersambung pada port : ${port}`)
  })
