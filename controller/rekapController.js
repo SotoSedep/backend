@@ -95,11 +95,11 @@ class Controller{
     static list(req,res){
         const{id}=req.params
         rekap.findAll({
-            include:[menu],
+            
             where:{
                 id :id
             }
-        })
+        },{returning: true})
         .then(respon=>{
             res.json({respon})
         })
@@ -109,16 +109,17 @@ class Controller{
     }
 
     static listShift1(req,res){
-        console.log("asd")
-        const{tanggal}=req.body
+        const{id}=req.body
         rekap.findAll({
-            include:[menu],
+        
             where:{
-                createdAt :{
-                    "$between": ["2020-01-01 19:59:13", "2021-01-01 23:59:13"]
-                }
+                where: {
+                    createdAt: {
+                      [Op.between]: ["2020-01-01 19:59:13", "2021-01-01 23:59:13"]
+                    }
+                  }
             }
-        })
+        },{returning: true})
         .then(respon=>{
             res.json({respon})
         })
