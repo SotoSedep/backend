@@ -43,6 +43,24 @@ class Controller{
         })
     }
 
+    static listByMeja(req,res){
+        const{mejaId}=req.params
+        temporary.findAll({
+            include:[menu],
+            where:{
+                mejaId:mejaId,
+                status:0
+            }
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+
     static listByJenis(req,res){
         const{jenis}=req.params
         temporary.findAll({
@@ -101,7 +119,7 @@ class Controller{
 
     static delete(req,res){
         const{id}= req.params
-        menu.destroy({
+        temporary.destroy({
             where : {
                 id: id
             }

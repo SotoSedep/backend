@@ -1,31 +1,96 @@
 const rekap = require('../model/rekapModel')
 const nota= require('../model/notaModel')
+const temporary = require('../model/temporaryModel')
+const menu = require('../model/menuModel')
+const meja = require('../model/mejaModel')
+const {Op} = require('sequelize')
+
 
 
 class Controller{
 
-    static register(req, res){
-        const {notaId,namaMenu,harga,jumlah}= req.body
-        const totalHarga= harga*jumlah
-        rekap.create({notaId:notaId,namaMenu:namaMenu,jumlah:jumlah,totalHarga:totalHarga}, {returning: true}).then(respon =>{
-        res.json(respon)
-         })
-        .catch(err=>{
-        res.json(err)
-        })
+    // static register(req, res){
+    //     const {notaId,namaMenu,harga,jumlah}= req.body
+    //     const totalHarga= harga*jumlah
+    //     rekap.create({notaId:notaId,namaMenu:namaMenu,jumlah:jumlah,totalHarga:totalHarga}, {returning: true}).then(respon =>{
+    //     res.json(respon)
+    //      })
+    //     .catch(err=>{
+    //     res.json(err)
+    //     })
         
-      }
+    //   }
 
-      static async screening(req,res){
-       
-        for(let i = 0;i<req.body.length;i++){
-           req.body[i].totalHarga= await req.body[i].harga * req.body[i].jumlah
-        }
-            rekap.bulkCreate(req.body,{returning:true})
-        .then(hasil=>{
-            res.json('INPUT DATA SUKSES')
+    static async screening(req,res){
+        const{mejaId}=req.body
+
+        nota.findAll({
+            where:{
+                mejaId:mejaId
+            }
         })
+        .then(x=>{
+           
+           const nomorNota=`meha${mejaId}#${x.length}`
+            temporary.findAll({
+                include:[menu,meja],
+                where:{
+                    mejaId:mejaId,
+                    status:0
+                }
+            })
+            .then(data=>{
+                nota.findAll({
+                    where:{
+                        nomorNota:nomorNota
+                    }
+                }).then(data2=>{
+                    if(data2.length){
+                        res.json({message :"data sudah ada"})
+                
+                    }
+                    else{
+                    //    console.log(data[1].dataValues)
+                        nota.create({nomorNota:nomorNota,nomorMeja:data[0].dataValues.meja.dataValues.nomorMeja,atasNama:data[0].atasNama}, {returning: true})
+                        .then(respon =>{
+                            for(let i = 0;i<data.length;i++){
+                                rekap.create({notumId:respon.dataValues.id,namaMenu:data[i].dataValues.menu.dataValues.namaMenu,jumlah:data[i].jumlah,totalHarga:data[i].totalHarga}, {returning: true})
+                            }
+                         })
+                         .then(respon =>{
+                                    
+                            temporary.destroy({
+                                where : {
+                                    mejaId: mejaId
+                                }
+                            }).then(respon=>{
+                                res.json(`sukses`)   
+                            })
+                            })
+                    }
+                })
+                
+    
+            })
+            
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+
+        
     }
+
+    //   static async screening2(req,res){
+       
+    //     for(let i = 0;i<req.body.length;i++){
+    //        req.body[i].totalHarga= await req.body[i].harga * req.body[i].jumlah
+    //     }
+    //         rekap.bulkCreate(req.body,{returning:true})
+    //     .then(hasil=>{
+    //         res.json('INPUT DATA SUKSES')
+    //     })
+    // }
     
     static list(req,res){
         const{id}=req.params
@@ -33,6 +98,25 @@ class Controller{
             include:[menu],
             where:{
                 id :id
+            }
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static listShift1(req,res){
+        console.log("asd")
+        const{tanggal}=req.body
+        rekap.findAll({
+            include:[menu],
+            where:{
+                createdAt :{
+                    "$between": ["2020-01-01 19:59:13", "2021-01-01 23:59:13"]
+                }
             }
         })
         .then(respon=>{

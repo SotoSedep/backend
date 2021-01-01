@@ -6,7 +6,7 @@ const nota = require('../model/notaModel')
 class Controller{
 
     static register(req, res){
-        const {nomorNota,nomorMeja,atasNama}= req.body
+        const {nomorNota,mejaId,atasNama}= req.body
         nota.findAll({
             where:{
                 nomorNota:nomorNota
@@ -16,7 +16,7 @@ class Controller{
                 res.json({message :"data sudah ada"})
             }
             else{
-                nota.create({nomorNota:nomorNota,nomorMeja:nomorMeja,atasNama:atasNama}, {returning: true}).then(respon =>{
+                nota.create({nomorNota:nomorNota,mejaId:mejaId,atasNama:atasNama}, {returning: true}).then(respon =>{
                     res.json(respon)
                  })
                  .catch(err=>{
@@ -59,11 +59,11 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {nomorNota,nomorMeja,atasNama}= req.body
+        const {nomorNota,mejaId,atasNama}= req.body
         
         nota.update({
             nomorNota:nomorNota,
-            nomorMeja:nomorMeja,
+            mejaId:mejaId,
             atasNama:atasNama
         },{
             where :{

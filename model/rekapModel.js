@@ -18,7 +18,7 @@ const rekap = sq.define('rekap',{
     },
     jumlah:{
         type:DataTypes.INTEGER,
-        defaultValue:""
+        defaultValue:0
     }
     
 },

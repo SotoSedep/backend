@@ -34,7 +34,6 @@ const temporary = sq.define('temporary',{
     
 },
 {
-paranoid:true
 });
 
 temporary.belongsTo(karyawan)

@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sq =  require('../config/connection');
+const meja = require('./mejaModel')
 
 const nota = sq.define('nota',{
     id:{
@@ -11,10 +12,6 @@ const nota = sq.define('nota',{
          type:DataTypes.STRING,
          defaultValue:''
     },
-    NomorMeja:{
-        type:DataTypes.STRING,
-        defaultValue:0
-    },
     atasNama:{
         type:DataTypes.STRING,
         defaultValue:""
@@ -24,6 +21,9 @@ const nota = sq.define('nota',{
 {
 paranoid:true
 });
+
+nota.belongsTo(meja)
+meja.hasMany(nota)
 
 nota.sync({ alter: true })
 module.exports = nota
