@@ -4,6 +4,7 @@ const temporary = require('../model/temporaryModel')
 const menu = require('../model/menuModel')
 const meja = require('../model/mejaModel')
 const {Op} = require('sequelize')
+const moment = require('moment')
 
 
 
@@ -109,15 +110,55 @@ class Controller{
     }
 
     static listShift1(req,res){
-        const{id}=req.body
+        const{tanggal}=req.body
         rekap.findAll({
         
             where:{
-                where: {
                     createdAt: {
-                      [Op.between]: ["2020-01-01 19:59:13", "2021-01-01 23:59:13"]
+                      [Op.between]: [`${tanggal} 06:00:01`, `${tanggal} 14:00:00`]
                     }
-                  }
+                  
+            }
+        },{returning: true})
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static listShift2(req,res){
+        const{tanggal}=req.body
+        rekap.findAll({
+        
+            where:{
+                    createdAt: {
+                      [Op.between]: [`${tanggal} 14:00:01`, `${tanggal} 22:00:00`]
+                    }
+                  
+            }
+        },{returning: true})
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static listShift3(req,res){
+        const{tanggal}=req.body;
+        const a = moment(tanggal); 
+        const b = a.add(1, 'd'); 
+        const c = b.format('YYYY-MM-DD')
+        rekap.findAll({
+        
+            where:{
+                    createdAt: {
+                      [Op.between]: [`${tanggal} 22:00:01`, `${c} 06:00:00`]
+                    }
+                  
             }
         },{returning: true})
         .then(respon=>{
