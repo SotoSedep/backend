@@ -5,9 +5,9 @@ const menu= require('../model/menuModel')
 class Controller{
 
     static register(req, res){
-        const {menuId,karyawanId,harga,jenis,nomorMeja,jumlah,atasNama}= req.body
+        const {menuId,karyawanId,mejaId,harga,jenis,jumlah,atasNama}= req.body
         const totalHarga= harga*jumlah
-        temporary.create({menuId:menuId,karyawanId:karyawanId,totalHarga:totalHarga,jenis:jenis,nomorMeja:nomorMeja,jumlah:jumlah,atasNama:atasNama}, {returning: true}).then(respon =>{
+        temporary.create({menuId:menuId,karyawanId:karyawanId,totalHarga:totalHarga,jenis:jenis,mejaId:mejaId,jumlah:jumlah,atasNama:atasNama}, {returning: true}).then(respon =>{
         res.json(respon)
          })
         .catch(err=>{
@@ -43,6 +43,24 @@ class Controller{
         })
     }
 
+    static listByMeja(req,res){
+        const{mejaId}=req.params
+        temporary.findAll({
+            include:[menu],
+            where:{
+                mejaId:mejaId,
+                status:0
+            }
+        })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+
     static listByJenis(req,res){
         const{jenis}=req.params
         temporary.findAll({
@@ -75,13 +93,13 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {menuId,harga,jenis,nomorMeja,jumlah,atasNama}= req.body
+        const {menuId,harga,jenis,mejaId,jumlah,atasNama}= req.body
         
         temporary.update({
             menuId:menuId,
             totalHarga:harga*jumlah,
             jenis:jenis,
-            nomorMeja:nomorMeja,
+            mejaId:mejaId,
             atasNama:atasNama
         },{
             where :{
@@ -101,7 +119,7 @@ class Controller{
 
     static delete(req,res){
         const{id}= req.params
-        menu.destroy({
+        temporary.destroy({
             where : {
                 id: id
             }
