@@ -3,7 +3,7 @@ const router = require('express').Router()
 const authentification= require('../middleware/authentification')
 const {authorizationAdmin} = require('../middleware/authorization')
 
-router.post('/register',authorizationAdmin,controller.register)
+router.post('/register',controller.register)
 router.post('/login',controller.login)
 router.get('/profile/:id',controller.profile)
 // router.get('/profil',authentification,controller.profil)

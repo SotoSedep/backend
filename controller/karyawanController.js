@@ -53,11 +53,13 @@ class Controller{
             }
         })
         .then(data=>{
+            console.log(data);
             if(data.length){
         let hasil =  bcrypt.compare(password, data[0].dataValues.password);
                 if(hasil){
                     res.json([{token : jwt.generateToken(data[0].dataValues)},{id:data[0].id}])
-                }
+                    // console.log(res.json.token);
+                } 
                 else{
                     res.json({message : "password salah"})
                 }
@@ -78,6 +80,7 @@ class Controller{
         },{returning:true})
         .then(respon=>{
             res.json({respon})
+            console.log({respon}, 'ini responya')
         })
         .catch(err=>{
             res.json(err)
