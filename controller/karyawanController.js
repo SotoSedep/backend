@@ -56,7 +56,7 @@ class Controller{
             if(data.length){
         let hasil =  bcrypt.compare(password, data[0].dataValues.password);
                 if(hasil){
-                    res.json([{token : jwt.generateToken(data[0].dataValues)},{id:data[0].id}])
+                    res.json([{token : jwt.generateToken(data[0].dataValues)},{id:data[0].id},{role:data[0].role}])
                 }
                 else{
                     res.json({message : "password salah"})
