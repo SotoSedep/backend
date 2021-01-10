@@ -1,6 +1,7 @@
 const karyawan = require('../model/karyawanModel')
 const bcrypt = require('../helper/bcrypt')
 const jwt = require('../helper/jwt')
+const { Op } = require("sequelize")
 
 function createAdmin() {
     let adminpass = bcrypt.hashPassword("soto1234")
@@ -100,6 +101,23 @@ class Controller{
     //         res.json(err)
     //     })
     // }
+
+    static all(req,res){
+        
+        karyawan.findAll({
+            where:{
+                role: {
+                    [Op.or]: ["waitress", "kasir"]
+                }
+            }
+        },{returning:true})
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
 
     static update(req,res){
         const {id} = req.params

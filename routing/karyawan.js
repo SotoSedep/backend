@@ -9,6 +9,7 @@ router.get('/profile/:id',controller.profile)
 // router.get('/profil',authentification,controller.profil)
 router.post('/update/:id',authentification,controller.update)
 router.delete('/delete/:id',controller.delete)
+router.get('/all',authentification,authorizationAdmin,controller.all)
 
 
 module.exports=router
