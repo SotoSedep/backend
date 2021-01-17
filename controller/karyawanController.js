@@ -120,6 +120,7 @@ class Controller{
     }
 
     static update(req,res){
+        console.log(req.body)
         const {id} = req.params
         const {password,nama,alamat,role,handphone}= req.body
         

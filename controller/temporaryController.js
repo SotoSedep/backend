@@ -17,7 +17,7 @@ class Controller{
       }
 
       static async screening(req,res){
-       
+       console.log(req.body);
         for(let i = 0;i<req.body.length;i++){
            req.body[i].totalHarga= await req.body[i].harga * req.body[i].jumlah
         }
@@ -93,14 +93,11 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {menuId,harga,jenis,mejaId,jumlah,atasNama}= req.body
-        
+        const {status}= req.body
+        console.log(req.body)
         temporary.update({
-            menuId:menuId,
-            totalHarga:harga*jumlah,
-            jenis:jenis,
-            mejaId:mejaId,
-            atasNama:atasNama
+    
+            status:status
         },{
             where :{
                 id:id

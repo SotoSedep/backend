@@ -9,10 +9,10 @@ router.post('/register',authentification,authorizationWaitress,controller.regist
 router.post('/screening',authentification,authorizationWaitress,controller.screening)
 router.get('/list/:id',authentification,controller.list)
 router.get('/all',authentification,controller.all)
-router.get('/listByJenis/:jenis',authentification,controller.listByJenis)
+router.get('/listByJenis/:jenis',controller.listByJenis)
 router.get('/listByMeja/:mejaId',authentification,authorizationKasir,controller.listByMeja)
 // router.delete('/delete/:id',authentification,authorizationWaitress,controller.delete)
-router.post('/update/:id',authentification,authorizationKasir,controller.update)
+router.post('/update/:id',controller.update)
 
 
 module.exports=router
