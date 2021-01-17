@@ -13,6 +13,7 @@ router.get('/listByJenis/:jenis',controller.listByJenis)
 router.get('/listByMeja/:mejaId',authentification,authorizationKasir,controller.listByMeja)
 // router.delete('/delete/:id',authentification,authorizationWaitress,controller.delete)
 router.post('/update/:id',controller.update)
+router.get('/dashboardKasir',authentification,controller.dashboardKasir)
 
 
 module.exports=router

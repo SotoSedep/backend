@@ -90,6 +90,17 @@ class Controller{
             res.json(err)
         })
     }
+
+    static dashboardKasir(req,res){
+        
+        temporary.aggregate('mejaId', 'DISTINCT', { plain: false })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
     
     static update(req,res){
         const {id}=req.params
