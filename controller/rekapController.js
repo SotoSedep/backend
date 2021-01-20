@@ -32,7 +32,7 @@ class Controller{
         })
         .then(x=>{
            
-           const nomorNota=`meha${mejaId}#${x.length}`
+           const nomorNota=`meja${mejaId}#${x.length}`
             temporary.findAll({
                 include:[menu,meja],
                 where:{
@@ -109,6 +109,27 @@ class Controller{
         })
     }
 
+    static bulanan(req,res){
+        const{bulan,tahun}=req.body
+        const awal = `${tahun}-${bulan}-1`
+        const akhir = `${tahun}-${bulan}-31`
+        rekap.findAll({
+        
+            where:{
+                    createdAt: {
+                        [Op.between]: [`${awal} 00:00:00`, `${akhir} 23:59:59`]
+                    }
+                  
+            }
+        },{returning: true})
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
     static listShift1(req,res){
         const{tanggal}=req.body
         rekap.findAll({
@@ -130,6 +151,7 @@ class Controller{
 
     static listShift2(req,res){
         const{tanggal}=req.body
+        console.log(tanggal)
         rekap.findAll({
         
             where:{
