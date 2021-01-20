@@ -1,7 +1,7 @@
 const controller = require('../controller/rekapController')
 const router = require('express').Router()
 const authentification= require('../middleware/authentification')
-const {authorizationKasir}=require('../middleware/authorization')
+const {authorizationKasir, authorizationAdmin}=require('../middleware/authorization')
 
 
 // router.post('/register',authentification,controller.register)
@@ -13,6 +13,7 @@ router.get('/listShift3',authentification,controller.listShift3)
 router.delete('/delete/:id',authentification,controller.delete)
 router.post('/update/:id',authentification,controller.update)
 router.post('/screening',authentification,authorizationKasir,controller.screening)
+router.get('/bulanan',authentification,authorizationAdmin,controller.bulanan)
 
 
 module.exports=router
