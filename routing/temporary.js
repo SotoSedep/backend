@@ -7,7 +7,7 @@ const {authorizationKasir}=require('../middleware/authorization')
 
 router.post('/register',authentification,authorizationWaitress,controller.register)
 router.post('/screening',authentification,authorizationWaitress,controller.screening)
-router.get('/list/:id',authentification,controller.list)
+router.get('/list/:id',controller.list)
 router.get('/all',authentification,controller.all)
 router.get('/listByJenis/:jenis',controller.listByJenis)
 router.get('/listByMeja/:mejaId',authentification,authorizationKasir,controller.listByMeja)

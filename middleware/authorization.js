@@ -26,9 +26,8 @@ function authorizationAdmin(req,res,next){
 
 function authorizationKasir(req,res,next){
     
-    // console.log(req.headers.accesstoken);
+    
     const decode = verifyToken(req.headers.accesstoken)
-    console.log(decode)
     karyawan.findAll({
            where:{
                password:decode.password
