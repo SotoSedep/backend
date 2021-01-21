@@ -1,6 +1,6 @@
 const temporary = require('../model/temporaryModel')
 const menu= require('../model/menuModel')
-const io = require('../app')
+const kirimKasir = require('../app')
 
 class Controller{
 
@@ -23,7 +23,10 @@ class Controller{
         }
             temporary.bulkCreate(req.body,{returning:true})
         .then(hasil=>{
-            io.sockets.emit('refresh',{'ref':'1'})
+            console.log('kirimkasir')
+            kirimKasir.kirimKasir()
+          
+            
             res.json('INPUT DATA SUKSES')
         })
     }

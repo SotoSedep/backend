@@ -5,6 +5,10 @@ const cors =require('cors')
 const routing = require('./routing/index')
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
+// const toketio =  require('socket.io')
+// console.log(io, 'abc')
+
+
 
 
 io.on('connection',(socket)=>{
@@ -13,6 +17,7 @@ io.on('connection',(socket)=>{
   socket.on('disconnect',function(){
     console.log('user DC')
   })
+
 })
 
 
@@ -24,13 +29,15 @@ app.use(express.json())
 app.use('/', routing)
 
 const port = 3005
+
 http.listen(port, () => {
   console.log(`socket telah tersambung pada port : ${port}`)
 });
+function kirimKasir(){
+  console.log('asdasdasd')
+  io.emit('refresh', {test:1})
+}
 
- app.listen(port, () => {
-   console.log(`telah tersambung pada port : ${port}`)
- });
+exports.kirimKasir=kirimKasir
 
  
- module.exports=io
