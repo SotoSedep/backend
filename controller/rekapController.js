@@ -109,10 +109,9 @@ class Controller{
         })
     }
 
-    static bulanan(req,res){
-        const{bulan,tahun}=req.body
-        const awal = `${tahun}-${bulan}-1`
-        const akhir = `${tahun}-${bulan}-31`
+    static showRekap(req,res){
+        const{awal,akhir}=req.body
+       
         rekap.findAll({
         
             where:{
