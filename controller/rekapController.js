@@ -116,7 +116,7 @@ class Controller{
         
             where:{
                     createdAt: {
-                        [Op.between]: [`${awal} 00:00:00`, `${akhir} 23:59:59`]
+                        [Op.between]: [`${awal} 00:00:00`, `${akhir} 24:00:00`]
                     }
                   
             }
