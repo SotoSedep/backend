@@ -5,9 +5,9 @@ const kirimKasir = require('../app')
 class Controller{
 
     static register(req, res){
-        const {menuId,karyawanId,mejaId,harga,jenis,jumlah,atasNama}= req.body
+        const {menuId,karyawanId,mejaId,harga,jenis,jumlah,atasNama,keterangan}= req.body
         const totalHarga= harga*jumlah
-        temporary.create({menuId:menuId,karyawanId:karyawanId,totalHarga:totalHarga,jenis:jenis,mejaId:mejaId,jumlah:jumlah,atasNama:atasNama}, {returning: true}).then(respon =>{
+        temporary.create({menuId:menuId,karyawanId:karyawanId,totalHarga:totalHarga,jenis:jenis,mejaId:mejaId,jumlah:jumlah,atasNama:atasNama,keterangan:keterangan}, {returning: true}).then(respon =>{
         res.json(respon)
          })
         .catch(err=>{
@@ -109,7 +109,7 @@ class Controller{
     static update(req,res){
         const {id}=req.params
         const {status}= req.body
-        console.log(req.body)
+       
         temporary.update({
     
             status:status

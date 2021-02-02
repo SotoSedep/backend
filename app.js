@@ -5,8 +5,7 @@ const cors =require('cors')
 const routing = require('./routing/index')
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
-// const toketio =  require('socket.io')
-// console.log(io, 'abc')
+
 
 
 

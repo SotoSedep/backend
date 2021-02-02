@@ -30,6 +30,10 @@ const temporary = sq.define('temporary',{
     atasNama:{
         type:DataTypes.STRING,
         defaultValue:""
+    },
+    keterangan:{
+        type:DataTypes.STRING,
+        defaultValue:""
     }
     
 },
