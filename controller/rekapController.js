@@ -33,11 +33,12 @@ class Controller{
         .then(x=>{
            
            const nomorNota=`meja${mejaId}#${x.length}`
+       
             temporary.findAll({
                 include:[menu,meja],
                 where:{
                     mejaId:mejaId,
-                    status:0
+                    
                 }
             })
             .then(data=>{
@@ -51,8 +52,8 @@ class Controller{
                 
                     }
                     else{
-                    //    console.log(data[1].dataValues)
-                        nota.create({nomorNota:nomorNota,nomorMeja:data[0].dataValues.meja.dataValues.nomorMeja,atasNama:data[0].atasNama}, {returning: true})
+                    //    console.log(data[0].dataValues.meja.dataValues.nomorMeja,"<<<<")
+                        nota.create({nomorNota:nomorNota,mejaId:data[0].dataValues.meja.dataValues.nomorMeja,atasNama:data[0].atasNama}, {returning: true})
                         .then(respon =>{
                             for(let i = 0;i<data.length;i++){
                                 rekap.create({notumId:respon.dataValues.id,namaMenu:data[i].dataValues.menu.dataValues.namaMenu,jumlah:data[i].jumlah,totalHarga:data[i].totalHarga}, {returning: true})

@@ -53,7 +53,7 @@ class Controller{
             include:[menu],
             where:{
                 mejaId:mejaId,
-                status:0
+                
             }
         })
         .then(respon=>{
@@ -76,6 +76,7 @@ class Controller{
         })
         .then(respon=>{
             res.json({respon})
+            console.log(respon, "ini respon")
         })
         .catch(err=>{
             res.json(err)
@@ -89,6 +90,7 @@ class Controller{
         })
         .then(respon=>{
             res.json({respon})
+            
         })
         .catch(err=>{
             res.json(err)
