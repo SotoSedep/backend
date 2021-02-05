@@ -23,10 +23,7 @@ class Controller{
         }
             temporary.bulkCreate(req.body,{returning:true})
         .then(hasil=>{
-            console.log('kirimkasir')
             kirimKasir.kirimKasir()
-          
-            
             res.json('INPUT DATA SUKSES')
         })
     }
@@ -123,6 +120,7 @@ class Controller{
             plain:true
         })
         .then(respon=>{
+            kirimKasir.kirimKasir()
             res.json(respon)
         })
         .catch(err=>{

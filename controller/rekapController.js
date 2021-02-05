@@ -5,6 +5,7 @@ const menu = require('../model/menuModel')
 const meja = require('../model/mejaModel')
 const {Op} = require('sequelize')
 const moment = require('moment')
+const kirimKasir = require('../app')
 
 
 
@@ -66,6 +67,7 @@ class Controller{
                                     mejaId: mejaId
                                 }
                             }).then(respon=>{
+                                kirimKasir.kirimKasir()
                                 res.json(`sukses`)   
                             })
                             })

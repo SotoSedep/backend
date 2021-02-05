@@ -13,7 +13,7 @@ router.get('/listShift3',authentification,controller.listShift3)
 router.delete('/delete/:id',authentification,controller.delete)
 router.post('/update/:id',authentification,controller.update)
 router.post('/screening',authentification,authorizationKasir,controller.screening)
-router.get('/rekapan',authentification,authorizationAdmin,controller.showRekap)
+router.post('/rekapan',authentification,authorizationAdmin,controller.showRekap)
 
 
 module.exports=router
