@@ -54,6 +54,7 @@ class Controller{
             }
         })
         .then(respon=>{
+            kirimKasir.kirimKasir()
             res.json({respon})
         })
         .catch(err=>{
@@ -73,7 +74,7 @@ class Controller{
         })
         .then(respon=>{
             res.json({respon})
-            console.log(respon, "ini respon")
+            
         })
         .catch(err=>{
             res.json(err)

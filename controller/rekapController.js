@@ -126,6 +126,7 @@ class Controller{
         },{returning: true})
         .then(respon=>{
             res.json({respon})
+            console.log(respon, "ini respon rekap")
         })
         .catch(err=>{
             res.json(err)
