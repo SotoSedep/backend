@@ -33,10 +33,14 @@ http.listen(port, () => {
   console.log(`socket telah tersambung pada port : ${port}`)
 });
 function kirimKasir(){
-  console.log('asdasdasd')
   io.emit('refresh', {test:1})
 }
 
+function kasirdone(){
+  io.emit('alldone')
+}
+
 exports.kirimKasir=kirimKasir
+exports.kasirdone=kasirdone
 
  

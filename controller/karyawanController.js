@@ -80,7 +80,7 @@ class Controller{
         },{returning:true})
         .then(respon=>{
             res.json({respon})
-            console.log({respon}, 'ini responya')
+          
         })
         .catch(err=>{
             res.json(err)

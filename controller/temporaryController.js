@@ -1,6 +1,7 @@
 const temporary = require('../model/temporaryModel')
 const menu= require('../model/menuModel')
 const kirimKasir = require('../app')
+const kasirdone = require('../app')
 
 class Controller{
 
@@ -108,7 +109,7 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {status}= req.body
+        const {status,mejaId}= req.body
        
         temporary.update({
     
@@ -122,7 +123,21 @@ class Controller{
         })
         .then(respon=>{
             kirimKasir.kirimKasir()
-            res.json(respon)
+            temporary.findAll({
+                where:{
+                    mejaId:mejaId,
+                    status:0
+                }
+            })
+        })
+        .then(data2=>{
+            if(data2.length){
+                res.json({data2})
+            }
+            else{
+                kasirdone.kasirdone()
+                res.json({message:"selesai"})
+            }
         })
         .catch(err=>{
             res.json(err)
