@@ -19,7 +19,7 @@ class Controller{
       }
 
       static async screening(req,res){
-       console.log(req.body);
+      
         for(let i = 0;i<req.body.length;i++){
            req.body[i].totalHarga= await req.body[i].harga * req.body[i].jumlah
         }
@@ -30,7 +30,7 @@ class Controller{
                 flagging:1
             },{
                 where :{
-                    mejaId:mejaId,
+                    id:req.body[0].mejaId,
                 }
             })
             .then(respon=>{
@@ -124,7 +124,7 @@ class Controller{
     static update(req,res){
         const {id}=req.params
         const {status,mejaId}= req.body
-       
+       console.log(req.body)
         temporary.update({
     
             status:status
@@ -143,27 +143,31 @@ class Controller{
                     status:0
                 }
             })
+            .then(data2=>{
+                console.log(data2,"<<<<<<<<< Data2")
+                if(data2.length){
+                    console.log("masuk if")
+                    res.json({data2})
+                }
+                else{
+                    console.log("masuk else")
+                    meja.update({
+                        flagging:2
+                    },{
+                        where :{
+                            id:mejaId,
+                        }
+                    })
+                    .then(respon=>{
+                        gantiWarna.gantiWarna();
+                        res.json({message:"selesai"})
+                    })
+                    
+                    
+                }
+            })
         })
-        .then(data2=>{
-            if(data2.length){
-                res.json({data2})
-            }
-            else{
-                meja.update({
-                    flagging:2
-                },{
-                    where :{
-                        mejaId:mejaId,
-                    }
-                })
-                .then(respon=>{
-                    gantiWarna.gantiWarna();
-                    res.json({message:"selesai"})
-                })
-                
-                
-            }
-        })
+        
         .catch(err=>{
             res.json(err)
         })

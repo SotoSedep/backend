@@ -70,10 +70,10 @@ class Controller{
                             }).then(respon=>{
                                 kirimKasir.kirimKasir();
                                 meja.update({
-                                    flagging:2
+                                    flagging:0
                                 },{
                                     where :{
-                                        mejaId:mejaId,
+                                        id:mejaId,
                                     }
                                 })
                                 .then(respon=>{

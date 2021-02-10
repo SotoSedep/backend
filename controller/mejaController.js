@@ -47,7 +47,7 @@ class Controller{
 
     static all(req,res){
          meja.findAll({
-            sort:[['nomorMeja','ASC']]
+            sort:[['id','ASC']]
         })
         .then(respon=>{
             res.json({respon})
