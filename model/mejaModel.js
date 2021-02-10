@@ -11,6 +11,10 @@ const meja = sq.define('meja',{
          type:DataTypes.STRING,
          defaultValue:''
     },
+    flagging:{
+        type:DataTypes.INTEGER,
+        defaultValue:0
+    }
     
 },
 {

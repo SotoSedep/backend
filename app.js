@@ -36,11 +36,11 @@ function kirimKasir(){
   io.emit('refresh', {test:1})
 }
 
-function kasirdone(){
+function gantiWarna(){
   io.emit('alldone')
 }
 
 exports.kirimKasir=kirimKasir
-exports.kasirdone=kasirdone
+exports.gantiWarna=gantiWarna
 
  

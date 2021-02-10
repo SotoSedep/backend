@@ -1,7 +1,8 @@
 const temporary = require('../model/temporaryModel')
 const menu= require('../model/menuModel')
+const meja = require('../model/mejaModel')
 const kirimKasir = require('../app')
-const kasirdone = require('../app')
+const gantiWarna = require('../app')
 
 class Controller{
 
@@ -25,7 +26,20 @@ class Controller{
             temporary.bulkCreate(req.body,{returning:true})
         .then(hasil=>{
             kirimKasir.kirimKasir()
-            res.json('INPUT DATA SUKSES')
+            meja.update({
+                flagging:1
+            },{
+                where :{
+                    mejaId:mejaId,
+                }
+            })
+            .then(respon=>{
+                gantiWarna.gantiWarna()
+                res.json({message:"INPUT DATA SUKSES"})
+            })
+        })
+        .catch(err=>{
+            res.json(err)
         })
     }
     
@@ -135,8 +149,19 @@ class Controller{
                 res.json({data2})
             }
             else{
-                kasirdone.kasirdone()
-                res.json({message:"selesai"})
+                meja.update({
+                    flagging:2
+                },{
+                    where :{
+                        mejaId:mejaId,
+                    }
+                })
+                .then(respon=>{
+                    gantiWarna.gantiWarna();
+                    res.json({message:"selesai"})
+                })
+                
+                
             }
         })
         .catch(err=>{

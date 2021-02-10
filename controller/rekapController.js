@@ -6,6 +6,7 @@ const meja = require('../model/mejaModel')
 const {Op} = require('sequelize')
 const moment = require('moment')
 const kirimKasir = require('../app')
+const gantiWarna= require('../app')
 
 
 
@@ -67,8 +68,19 @@ class Controller{
                                     mejaId: mejaId
                                 }
                             }).then(respon=>{
-                                kirimKasir.kirimKasir()
-                                res.json(`sukses`)   
+                                kirimKasir.kirimKasir();
+                                meja.update({
+                                    flagging:2
+                                },{
+                                    where :{
+                                        mejaId:mejaId,
+                                    }
+                                })
+                                .then(respon=>{
+                                    gantiWarna.gantiWarna()
+                                    res.json(`sukses`) 
+                                })
+                                  
                             })
                             })
                     }

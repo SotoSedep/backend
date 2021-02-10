@@ -6,17 +6,18 @@ const meja = require('../model/mejaModel')
 class Controller{
 
     static register(req, res){
-        const {nomorMeja}= req.body
+        const {nomorMeja,flagging}= req.body
         meja.findAll({
             where:{
-                nomorMeja:nomorMeja
+                nomorMeja:nomorMeja,
+                
             }
         }).then(data=>{
             if(data.length){
                 res.json({message :"data sudah ada"})
             }
             else{
-                meja.create({nomorMeja:nomorMeja}, {returning: true}).then(respon =>{
+                meja.create({nomorMeja:nomorMeja,flagging:flagging}, {returning: true}).then(respon =>{
                     res.json(respon)
                  })
                  .catch(err=>{
@@ -58,13 +59,13 @@ class Controller{
     
     static update(req,res){
         const {id}=req.params
-        const {nomorMeja}= req.body
+        const {nomorMeja,flagging}= req.body
         
         meja.update({
-            nomorMeja:nomorMeja
+            nomorMeja:nomorMeja,flagging:flagging
         },{
             where :{
-                id:id
+                id:id,
             },
             returning: true,
             plain:true
