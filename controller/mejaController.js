@@ -50,7 +50,16 @@ class Controller{
             sort:[['id','ASC']]
         })
         .then(respon=>{
-            res.json({respon})
+            let x = []
+            let y = {}
+
+            for(let i=0;i<respon.length;i++){
+               y[respon[i].id]={"flagging":respon[i].flagging,"nomorMeja":respon[i].nomorMeja}
+               x.push(y)
+               y={}
+            }
+
+            res.json({x})
         })
         .catch(err=>{
             res.json(err)

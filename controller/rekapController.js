@@ -70,10 +70,10 @@ class Controller{
                             }).then(respon=>{
                                 kirimKasir.kirimKasir();
                                 meja.update({
-                                    flagging:0
+                                    flagging:2
                                 },{
                                     where :{
-                                        id:mejaId,
+                                        mejaId:mejaId,
                                     }
                                 })
                                 .then(respon=>{
@@ -128,7 +128,13 @@ class Controller{
         const{awal,akhir}=req.body
        
         rekap.findAll({
-        
+            attributes:[
+                'namaMenu',
+                [sequelize.fn('sum',sequelize.col('jumlah')),'totalPenjualan'],
+                [sequelize.fn('sum',sequelize.col('totalHarga')),'totalPendapatan']
+            ],
+            group:['namaMenu']
+            ,
             where:{
                     createdAt: {
                         [Op.between]: [`${awal} 00:00:00`, `${akhir} 24:00:00`]

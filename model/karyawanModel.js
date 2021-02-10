@@ -29,7 +29,7 @@ const karyawan = sq.define('karyawan',{
     },
     handphone:{
         type:DataTypes.STRING,
-        defaultValue:""
+        
     }
     
 },
