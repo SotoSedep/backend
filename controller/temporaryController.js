@@ -3,6 +3,7 @@ const menu= require('../model/menuModel')
 const meja = require('../model/mejaModel')
 const kirimKasir = require('../app')
 const gantiWarna = require('../app')
+const sequelize = require('sequelize')
 
 class Controller{
 
@@ -99,7 +100,7 @@ class Controller{
     static all(req,res){
         
         temporary.findAll({
-            sort:[['namaMenu','ASC']]
+            order:[['namaMenu','ASC']]
         })
         .then(respon=>{
             res.json({respon})
@@ -111,14 +112,27 @@ class Controller{
     }
 
     static dashboardKasir(req,res){
-        
-        temporary.aggregate('mejaId', 'DISTINCT', { plain: false })
-        .then(respon=>{
+
+        temporary.findAll({
+            attributes: [
+                [sequelize.fn('DISTINCT', sequelize.col('mejaId')) ,'mejaId'],
+            ],
+            // include: [ [meja]],
+        })
+         .then(respon=>{
             res.json({respon})
         })
         .catch(err=>{
             res.json(err)
         })
+        
+        // temporary.aggregate('mejaId', 'DISTINCT', { plain: false })
+        // .then(respon=>{
+        //     res.json({respon})
+        // })
+        // .catch(err=>{
+        //     res.json(err)
+        // })
     }
     
     static update(req,res){

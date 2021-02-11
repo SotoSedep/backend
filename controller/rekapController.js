@@ -27,6 +27,7 @@ class Controller{
 
     static async screening(req,res){
         const{mejaId}=req.body
+        console.log(req.body.mejaId,"<<<<MEJA ID")
 
         nota.findAll({
             where:{
@@ -56,7 +57,7 @@ class Controller{
                     }
                     else{
                     //    console.log(data[0].dataValues.meja.dataValues.nomorMeja,"<<<<")
-                        nota.create({nomorNota:nomorNota,mejaId:data[0].dataValues.meja.dataValues.nomorMeja,atasNama:data[0].atasNama}, {returning: true})
+                        nota.create({nomorNota:nomorNota,mejaId:data[0].dataValues.meja.dataValues.id,atasNama:data[0].atasNama}, {returning: true})
                         .then(respon =>{
                             for(let i = 0;i<data.length;i++){
                                 rekap.create({notumId:respon.dataValues.id,namaMenu:data[i].dataValues.menu.dataValues.namaMenu,jumlah:data[i].jumlah,totalHarga:data[i].totalHarga}, {returning: true})
@@ -71,10 +72,10 @@ class Controller{
                             }).then(respon=>{
                                 kirimKasir.kirimKasir();
                                 meja.update({
-                                    flagging:2
+                                    flagging:0
                                 },{
                                     where :{
-                                        mejaId:mejaId,
+                                        id:mejaId,
                                     }
                                 })
                                 .then(respon=>{

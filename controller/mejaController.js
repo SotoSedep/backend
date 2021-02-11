@@ -47,14 +47,15 @@ class Controller{
 
     static all(req,res){
          meja.findAll({
-            sort:[['id','ASC']]
+            order:[['id','ASC']]
         })
         .then(respon=>{
+            // console.log(respon, " ini respon")
             let x = []
             let y = {}
 
             for(let i=0;i<respon.length;i++){
-               y[respon[i].id]={"flagging":respon[i].flagging,"nomorMeja":respon[i].nomorMeja}
+                 y[respon[i].id]=  {"flagging":respon[i].flagging,"nomorMeja":respon[i].nomorMeja,"id":respon[i].id}
                x.push(y)
                y={}
             }
