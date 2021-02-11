@@ -7,6 +7,7 @@ const {Op} = require('sequelize')
 const moment = require('moment')
 const kirimKasir = require('../app')
 const gantiWarna= require('../app')
+const sequelize =require('sequelize')
 
 
 
@@ -261,6 +262,32 @@ class Controller{
         }).then(respon=>{
             res.json(`berhasil delete id : ${id}`)
             
+        })
+        .catch(err=>{
+            res.json(err)
+        })
+    }
+
+    static rekapGraph(req,res){
+        const {awal,akhir}= req.body;
+
+        rekap.findAll({
+            attributes:[
+                [sequelize.fn('SUM', sequelize.col('totalHarga')), 'pendapatanHarian'],
+                [sequelize.fn('date_trunc', 'day', sequelize.col('createdAt')), 'tanggal'],
+            ],
+            where:{
+                createdAt: {
+                    [Op.between]: [`${awal}`, `${akhir}`]
+                }
+                 },
+
+            order: [[sequelize.literal('"tanggal"'), 'ASC']],
+            group: 'tanggal'
+        
+        })
+        .then(data=>{
+            res.json(data)
         })
         .catch(err=>{
             res.json(err)
