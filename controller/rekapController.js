@@ -288,7 +288,42 @@ class Controller{
         
         })
         .then(data=>{
-            res.json(data)
+            rekap.findAll({
+                attributes:[
+                    [sequelize.fn('SUM', sequelize.col('totalHarga')), 'pendapatanSotoAyam'],
+                    [sequelize.fn('date_trunc', 'day', sequelize.col('createdAt')), 'tanggal'],
+                ],
+                where:{
+                    createdAt: {
+                        [Op.between]: [`${awal}`, `${akhir}`]
+                    },
+                    namaMenu:"Soto Ayam"
+                     },
+    
+                order: [[sequelize.literal('"tanggal"'), 'ASC']],
+                group: 'tanggal'
+            
+            })
+            .then(data2=>{
+                rekap.findAll({
+                    attributes:[
+                        [sequelize.fn('SUM', sequelize.col('totalHarga')), 'pendapatanSotoSapi'],
+                        [sequelize.fn('date_trunc', 'day', sequelize.col('createdAt')), 'tanggal'],
+                    ],
+                    where:{
+                        createdAt: {
+                            [Op.between]: [`${awal}`, `${akhir}`]
+                        },
+                        namaMenu:"Soto Sapi"
+                         },
+        
+                    order: [[sequelize.literal('"tanggal"'), 'ASC']],
+                    group: 'tanggal'
+                
+                }).then(data3=>{
+                    res.json([data,data2,data3])
+                })
+            })
         })
         .catch(err=>{
             res.json(err)
