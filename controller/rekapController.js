@@ -297,7 +297,7 @@ class Controller{
                     createdAt: {
                         [Op.between]: [`${awal}`, `${akhir}`]
                     },
-                    namaMenu:"Soto Ayam"
+                    namaMenu:"Soto Ayam Kampung"
                      },
     
                 order: [[sequelize.literal('"tanggal"'), 'ASC']],
@@ -314,7 +314,7 @@ class Controller{
                         createdAt: {
                             [Op.between]: [`${awal}`, `${akhir}`]
                         },
-                        namaMenu:"Soto Sapi"
+                        namaMenu:"Soto Daging Sapi"
                          },
         
                     order: [[sequelize.literal('"tanggal"'), 'ASC']],

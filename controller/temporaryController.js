@@ -113,26 +113,26 @@ class Controller{
 
     static dashboardKasir(req,res){
 
-        temporary.findAll({
-            attributes: [
-                [sequelize.fn('DISTINCT', sequelize.col('mejaId')) ,'mejaId'],
-            ],
-            // include: [ [meja]],
-        })
-         .then(respon=>{
-            res.json({respon})
-        })
-        .catch(err=>{
-            res.json(err)
-        })
-        
-        // temporary.aggregate('mejaId', 'DISTINCT', { plain: false })
-        // .then(respon=>{
+        // temporary.findAll({
+        //     attributes: [
+        //         [sequelize.fn('DISTINCT', sequelize.col('mejaId')) ,'mejaId'],
+        //     ],
+        //     // include: [ [meja]],
+        // })
+        //  .then(respon=>{
         //     res.json({respon})
         // })
         // .catch(err=>{
         //     res.json(err)
         // })
+        
+        temporary.aggregate('mejaId', 'DISTINCT', { plain: false })
+        .then(respon=>{
+            res.json({respon})
+        })
+        .catch(err=>{
+            res.json(err)
+        })
     }
     
     static update(req,res){
