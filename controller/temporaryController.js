@@ -1,6 +1,7 @@
 const temporary = require('../model/temporaryModel')
 const menu= require('../model/menuModel')
 const meja = require('../model/mejaModel')
+const history = require('../model/historyModel')
 const kirimKasir = require('../app')
 const gantiWarna = require('../app')
 const sequelize = require('sequelize')
@@ -35,8 +36,11 @@ class Controller{
                 }
             })
             .then(respon=>{
-                gantiWarna.gantiWarna()
-                res.json({message:"INPUT DATA SUKSES"})
+                history.create({karyawanId:req.body[0].karyawanId,mejaId:req.body[0].mejaId})
+                .then(respon2=>{
+                 gantiWarna.gantiWarna()
+                 res.json({message:"INPUT DATA SUKSES"})
+                })
             })
         })
         .catch(err=>{

@@ -12,7 +12,7 @@ router.post('/listShift2',authentification,controller.listShift2)
 router.post('/listShift3',authentification,controller.listShift3)
 router.delete('/delete/:id',authentification,controller.delete)
 router.post('/update/:id',authentification,controller.update)
-router.post('/screening',authentification,authorizationKasir,controller.screening)
+router.post('/screening',authentification,controller.screening)
 router.post('/rekapan',authentification,authorizationAdmin,controller.showRekap)
 router.post('/graph',authentification,authorizationAdmin,controller.rekapGraph)
 
