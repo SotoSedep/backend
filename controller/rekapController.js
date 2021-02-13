@@ -3,11 +3,13 @@ const nota= require('../model/notaModel')
 const temporary = require('../model/temporaryModel')
 const menu = require('../model/menuModel')
 const meja = require('../model/mejaModel')
+const history=require('../model/historyModel')
 const {Op} = require('sequelize')
 const moment = require('moment')
 const kirimKasir = require('../app')
 const gantiWarna= require('../app')
 const sequelize =require('sequelize')
+const karyawan = require('../model/karyawanModel')
 
 
 
@@ -27,7 +29,6 @@ class Controller{
 
     static async screening(req,res){
         const{mejaId}=req.body
-        console.log(req.body.mejaId,"<<<<MEJA ID")
 
         nota.findAll({
             where:{
@@ -165,7 +166,26 @@ class Controller{
             }
         },{returning: true})
         .then(respon=>{
-            res.json({respon})
+            history.findAll({
+                
+                attributes:[
+                     'karyawan.id',
+                    [sequelize.fn('COUNT',sequelize.col('karyawanId')), 'jumlahPelayanan'],
+                ],
+                where:{
+                    createdAt: {
+                        [Op.between]: [`${tanggal} 06:00:01`, `${tanggal} 14:00:00`]
+                    }
+                     },
+
+                include    : [{model:karyawan,attributes:["nama"]}],
+                group: 'karyawan.id',
+               
+            
+            })
+            .then(respon2=>{
+                res.json([respon,respon2])
+            })
         })
         .catch(err=>{
             res.json(err)
@@ -174,18 +194,33 @@ class Controller{
 
     static listShift2(req,res){
         const{tanggal}=req.body
-        console.log(tanggal)
         rekap.findAll({
         
             where:{
                     createdAt: {
-                      [Op.between]: [`${tanggal} 14:00:01`, `${tanggal} 22:00:00`]
+                      [Op.between]: [`${tanggal} 14:00:00`, `${tanggal} 22:00:00`]
                     }
                   
             }
         },{returning: true})
         .then(respon=>{
-            res.json({respon})
+            history.findAll({
+                attributes:[
+                    'karyawan.id',
+                   [sequelize.fn('COUNT',sequelize.col('karyawanId')), 'jumlahPelayanan'],
+               ],
+                where:{
+                    createdAt: {
+                        [Op.between]: [`${tanggal} 14:00:00`, `${tanggal} 14:00:00`]
+                    }
+                     },
+                include    : [{model:karyawan,attributes:["nama"]}],
+                group: 'karyawan.id',
+            
+            })
+            .then(respon2=>{
+                res.json([respon,respon2])
+            })
         })
         .catch(err=>{
             res.json(err)
@@ -201,13 +236,30 @@ class Controller{
         
             where:{
                     createdAt: {
-                      [Op.between]: [`${tanggal} 22:00:01`, `${c} 06:00:00`]
+                      [Op.between]: [`${tanggal} 22:00:00`, `${c} 06:00:00`]
                     }
                   
             }
         },{returning: true})
         .then(respon=>{
-            res.json({respon})
+            history.findAll({
+                attributes:[
+                    'karyawan.id',
+                   [sequelize.fn('COUNT',sequelize.col('karyawanId')), 'jumlahPelayanan'],
+               ],
+                where:{
+                    createdAt: {
+                        [Op.between]: [`${tanggal} 22:00:00`, `${c} 06:00:00`]
+                    }
+                     },
+
+                include    : [{model:karyawan,attributes:["nama"]}],
+                group: 'karyawan.id',
+            
+            })
+            .then(respon2=>{
+                res.json([respon,respon2])
+            })
         })
         .catch(err=>{
             res.json(err)
