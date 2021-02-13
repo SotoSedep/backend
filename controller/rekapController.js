@@ -290,7 +290,7 @@ class Controller{
         .then(data=>{
             rekap.findAll({
                 attributes:[
-                    [sequelize.fn('SUM', sequelize.col('totalHarga')), 'pendapatanSotoAyam'],
+                    [sequelize.fn('COUNT', sequelize.col('totalHarga')), 'pendapatanSotoAyam'],
                     [sequelize.fn('date_trunc', 'day', sequelize.col('createdAt')), 'tanggal'],
                 ],
                 where:{
@@ -307,7 +307,7 @@ class Controller{
             .then(data2=>{
                 rekap.findAll({
                     attributes:[
-                        [sequelize.fn('SUM', sequelize.col('totalHarga')), 'pendapatanSotoSapi'],
+                        [sequelize.fn('COUNT', sequelize.col('totalHarga')), 'pendapatanSotoSapi'],
                         [sequelize.fn('date_trunc', 'day', sequelize.col('createdAt')), 'tanggal'],
                     ],
                     where:{
