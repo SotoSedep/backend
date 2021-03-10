@@ -19,6 +19,9 @@ const rekap = sq.define('rekap',{
     jumlah:{
         type:DataTypes.INTEGER,
         defaultValue:0
+    },
+    waktuPesan:{
+        type:DataTypes.DATE,
     }
     
 },
