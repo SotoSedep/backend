@@ -193,19 +193,56 @@ class Controller{
     }
 
     static delete(req,res){
-        const{id}= req.params
+        const {id}=req.params
+        const {mejaId}= req.body
+        console.log(req.body)
         temporary.destroy({
-            where : {
-                id: id
+            where:{
+                id:id
             }
-        }).then(respon=>{
-            res.json(`berhasil delete id : ${id}`)
             
         })
+        .then(respon=>{
+            console.log("findall")
+            kirimKasir.kirimKasir()
+            temporary.findAll({
+                where:{
+                    mejaId:mejaId,
+                    status:0
+                }
+            })
+            .then(data2=>{
+                console.log(data2,"asd")
+                if(data2.length){
+                    console.log("masuk if")
+                    res.json({data2})
+                }
+                else{
+                    console.log("masuk else")
+                    meja.update({
+                        flagging:2
+                    },{
+                        where :{
+                            id:mejaId,
+                        }
+                    })
+                    .then(respon=>{
+                        gantiWarna.gantiWarna();
+                        res.json({message:"selesai"})
+                    })
+                    
+                    
+                }
+            })
+        })
+        
         .catch(err=>{
             res.json(err)
         })
+
     }
+
+    
 
     // static history(req,res){
 
