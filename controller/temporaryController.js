@@ -131,8 +131,22 @@ class Controller{
         // })
         
         temporary.aggregate('mejaId', 'DISTINCT', { plain: false })
-        .then(respon=>{
-            res.json({respon})
+        .then ( async respon=>{
+            let x=[]
+            for(let i =0;i<respon.length;i++){
+               await temporary.findAll({
+                    where:{
+                        mejaId:respon[i].DISTINCT
+                    }
+                }).then(hasil=>{
+                    respon[i].atasNama=hasil[0].dataValues.atasNama
+                    //  x.push(hasil[0].dataValues.atasNama)
+                    //  console.log(x,"????")
+                    // console.log(hasil[0].dataValues.atasNama)
+                })
+            }
+            console.log(respon)
+            res.json(respon)
         })
         .catch(err=>{
             res.json(err)
