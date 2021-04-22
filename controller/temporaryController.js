@@ -201,7 +201,8 @@ class Controller{
         })
         
         .catch(err=>{
-            res.json(err)
+            console.log(err)
+            res.json({message:'gagal'})
         })
 
     }
