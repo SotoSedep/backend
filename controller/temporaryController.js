@@ -89,7 +89,7 @@ class Controller{
             include:[menu],
             where:{
                 jenis:jenis,
-                status:0
+                // status:0
             }
         })
         .then(respon=>{
