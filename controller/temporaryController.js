@@ -97,7 +97,7 @@ class Controller{
                 include:[menu],
                 where:{
                     jenis:jenis,
-                    status:0
+                    status:1
                 }
             })
             .then(data2=>{
