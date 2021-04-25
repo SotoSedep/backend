@@ -89,11 +89,20 @@ class Controller{
             include:[menu],
             where:{
                 jenis:jenis,
-                // status:0
+                 status:0
             }
         })
-        .then(respon=>{
-            res.json({respon})
+        .then(data=>{
+            temporary.findAll({
+                include:[menu],
+                where:{
+                    jenis:jenis,
+                    status:1
+                }
+            })
+            .then(data2=>{
+                res.json([data,data2])
+            })
             
         })
         .catch(err=>{
