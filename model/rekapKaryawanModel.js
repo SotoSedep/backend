@@ -7,8 +7,9 @@ const rekapKaryawan = sq.define('rekapKaryawan',{
         primaryKey: true,
         autoIncrement: true
     },
-    ILK:{
-        type:DataTypes.STRING
+    absensi:{
+        type:DataTypes.INTEGER,
+        defaultValue:0
     },
     nominal:{
         type:DataTypes.INTEGER,
