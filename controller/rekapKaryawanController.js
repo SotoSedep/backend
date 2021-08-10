@@ -27,7 +27,13 @@ class Controller{
 
     static async listRekap(req,res){
         let data = await sq.query('select * from "rekapKaryawans" rk join karyawans k on rk."karyawanId"= k.id ')
-        res.json(data[0])
+        res.json({data:data[0]})
+    }
+
+    static async listByBulanTahun(req,res){
+        const{bulan,tahun}= req.params
+        let data = await sq.query(`select * from "rekapKaryawans" rk join karyawans k on rk."karyawanId"= k.id where rk.bulan = ${bulan} and rk.tahun=${tahun}`)
+        res.json({data:data[0]})
     }
 
     static update(req,res){

@@ -6,6 +6,8 @@ const meja = require('./meja')
 const nota = require('./nota')
 const rekap = require('./rekap')
 const rekapKaryawan=require('./rekapKaryawan')
+const pembelian = require('./pembelian')
+const setoran=require('./setoran')
 
 router.use('/menu',menu)
 router.use('/temporary',temporary)
@@ -14,4 +16,7 @@ router.use('/meja',meja)
 router.use('/nota',nota)
 router.use('/rekap',rekap)
 router.use('/rekapKaryawan',rekapKaryawan)
+router.use('/pembelian',pembelian)
+router.use('/setoran',setoran)
+
 module.exports=router
