@@ -5,6 +5,7 @@ const karyawan = require('./karyawan')
 const meja = require('./meja')
 const nota = require('./nota')
 const rekap = require('./rekap')
+const rekapKaryawan=require('./rekapKaryawan')
 
 router.use('/menu',menu)
 router.use('/temporary',temporary)
@@ -12,5 +13,5 @@ router.use('/karyawan',karyawan)
 router.use('/meja',meja)
 router.use('/nota',nota)
 router.use('/rekap',rekap)
-
+router.use('/rekapKaryawan',rekapKaryawan)
 module.exports=router

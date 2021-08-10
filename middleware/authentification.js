@@ -13,15 +13,15 @@ function authentification(req,res,next){
         }
     })
     .then(data=>{
-        console.log(data.length)
+        // console.log(data.length)
         if(data.length){ 
             
-            console.log("masuk data")
+            // console.log("masuk data")
             // req.dataKaryawan=decode
             next()
         }
         else{
-            console.log("masuk else")
+            // console.log("masuk else")
             res.json("anda belum login")
         }
     })

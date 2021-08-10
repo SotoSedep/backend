@@ -22,7 +22,6 @@ createAdmin()
 class Controller{
     
     static register(req, res){
-        console.log(req.body)
         const {username,password,nama,alamat,role,handphone}= req.body
         
         let encryptedPassword = bcrypt.hashPassword(password)
