@@ -5,6 +5,7 @@ const history = require('../model/historyModel')
 const kirimKasir = require('../app')
 const gantiWarna = require('../app')
 const sequelize = require('sequelize')
+const sq = require('../config/connection')
 
 class Controller{
 
@@ -108,6 +109,18 @@ class Controller{
         .catch(err=>{
             res.json(err)
         })
+    }
+
+    static async listMakananDanSoto(req,res){
+        let data = await sq.query(`select * from temporaries where (jenis ='makanan' or jenis='soto') and status =0`)
+        let data2 = await sq.query(`select * from temporaries where (jenis ='makanan' or jenis='soto') and status =1`)
+        res.json({data:data[0],data2:data2[0]})
+    }
+
+    static async listMinuman(req,res){
+        let data = await sq.query(`select * from temporaries where jenis = 'minuman' and status =0`)
+        let data2 = await sq.query(`select * from temporaries where jenis = 'minuman' and status =1`)
+        res.json({data:data[0],data2:data2[0]})
     }
 
     static all(req,res){

@@ -15,6 +15,8 @@ router.get('/listByMeja/:mejaId',authentification,authorizationKasir,controller.
 router.post('/update/:id',controller.update)
 router.get('/dashboardKasir',authentification,authorizationKasir,controller.dashboardKasir)
 router.post('/delete/:id',controller.delete)
+router.get('/listMakananDanSoto',controller.listMakananDanSoto)
+router.get('/listMinuman',controller.listMinuman)
 
 
 module.exports=router
