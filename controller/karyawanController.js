@@ -53,7 +53,7 @@ class Controller{
             }
         })
         .then(data=>{
-            console.log(data);
+         
             if(data.length){
         let hasil =  bcrypt.compare(password, data[0].dataValues.password);
                 if(hasil){
