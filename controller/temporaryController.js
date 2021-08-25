@@ -4,8 +4,8 @@ const meja = require('../model/mejaModel')
 const history = require('../model/historyModel')
 const kirimKasir = require('../app')
 const gantiWarna = require('../app')
-const sequelize = require('sequelize')
 const sq = require('../config/connection')
+const { Op } = require("sequelize");
 
 class Controller{
 
@@ -202,7 +202,7 @@ class Controller{
                     // console.log(hasil[0].dataValues.atasNama)
                 })
             }
-            console.log(respon)
+          
             res.json(respon)
         })
         .catch(err=>{
@@ -213,7 +213,7 @@ class Controller{
     static update(req,res){
         const {id}=req.params
         const {status,mejaId}= req.body
-       console.log(req.body)
+       
         temporary.update({
     
             status:status
@@ -233,13 +233,13 @@ class Controller{
                 }
             })
             .then(data2=>{
-                console.log(data2,"<<<<<<<<< Data2")
+               
                 if(data2.length){
-                    console.log("masuk if")
+                  
                     res.json({data2})
                 }
                 else{
-                    console.log("masuk else")
+                
                     meja.update({
                         flagging:2
                     },{
@@ -258,24 +258,27 @@ class Controller{
         })
         
         .catch(err=>{
-            console.log(err)
-            res.json({message:'gagal'})
+            res.json({message:err})
         })
 
     }
 
-    static delete(req,res){
-        const {id}=req.params
-        const {mejaId}= req.body
-        console.log(req.body)
-        temporary.destroy({
-            where:{
-                id:id
-            }
-            
+    static updateMakananPerMeja(req,res){
+        const {status,mejaId}= req.body
+        temporary.update({
+            status:status
+        },{
+            where :{
+                mejaId:mejaId,
+                [Op.or]: [
+                    { jenis: "makanan" },
+                    { jenis: 'soto' }
+                  ]
+            },
+            returning: true,
+            plain:true
         })
         .then(respon=>{
-            console.log("findall")
             kirimKasir.kirimKasir()
             temporary.findAll({
                 where:{
@@ -284,13 +287,109 @@ class Controller{
                 }
             })
             .then(data2=>{
-                console.log(data2,"asd")
                 if(data2.length){
-                    console.log("masuk if")
+                    
+                    res.json("sukses")
+                }
+                else{
+                    meja.update({
+                        flagging:2
+                    },{
+                        where :{
+                            id:mejaId,
+                        }
+                    })
+                    .then(respon=>{
+                        gantiWarna.gantiWarna();
+                        res.json({message:"selesai"})
+                    })
+                    
+                    
+                }
+            })
+        })
+        
+        .catch(err=>{
+            res.json({message:err})
+        })
+
+    }
+
+    static updateMinumanPerMeja(req,res){
+        const {status,mejaId}= req.body
+        temporary.update({
+            status:status
+        },{
+            where :{
+                mejaId:mejaId,
+                jenis:"minuman"
+            },
+            returning: true,
+            plain:true
+        })
+        .then(respon=>{
+            kirimKasir.kirimKasir()
+            temporary.findAll({
+                where:{
+                    mejaId:mejaId,
+                    status:0
+                }
+            })
+            .then(data2=>{
+                if(data2.length){
+                    
+                    res.json("sukses")
+                }
+                else{
+                    meja.update({
+                        flagging:2
+                    },{
+                        where :{
+                            id:mejaId,
+                        }
+                    })
+                    .then(respon=>{
+                        gantiWarna.gantiWarna();
+                        res.json({message:"selesai"})
+                    })
+                    
+                    
+                }
+            })
+        })
+        
+        .catch(err=>{
+            res.json({message:err})
+        })
+
+    }
+
+    static delete(req,res){
+        const {id}=req.params
+        const {mejaId}= req.body
+        temporary.destroy({
+            where:{
+                id:id
+            }
+            
+        })
+        .then(respon=>{
+           
+            kirimKasir.kirimKasir()
+            temporary.findAll({
+                where:{
+                    mejaId:mejaId,
+                    status:0
+                }
+            })
+            .then(data2=>{
+               
+                if(data2.length){
+                   
                     res.json({data2})
                 }
                 else{
-                    console.log("masuk else")
+                    
                     meja.update({
                         flagging:2
                     },{
