@@ -112,15 +112,50 @@ class Controller{
     }
 
     static async listMakananDanSoto(req,res){
-        let data = await sq.query(`select * from temporaries where (jenis ='makanan' or jenis='soto') and status =0`)
-        let data2 = await sq.query(`select * from temporaries where (jenis ='makanan' or jenis='soto') and status =1`)
-        res.json({data:data[0],data2:data2[0]})
+        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id where (t.jenis ='makanan' or t.jenis='soto') and status =0`)
+        // let data2 = await sq.query(`select * from temporaries where (jenis ='makanan' or jenis='soto') and status =1`)
+        let x = data[0]
+        let y = []
+        for(let i =0;i<x.length;i++){
+            let sama = false
+            for(let j =0;j<y.length;j++){
+                 if(x[i]["mejaId"]==y[j]["mejaId"]){
+                    y[j]["pesanan"].push({"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"]})
+                    sama=true
+                }   
+            }
+            if(sama==false){
+                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"]}]})
+            }
+        }
+        
+        
+        
+        res.json({data:y})
     }
 
     static async listMinuman(req,res){
-        let data = await sq.query(`select * from temporaries where jenis = 'minuman' and status =0`)
-        let data2 = await sq.query(`select * from temporaries where jenis = 'minuman' and status =1`)
-        res.json({data:data[0],data2:data2[0]})
+        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id where t.jenis = 'minuman' and status =0`)
+        // let data2 = await sq.query(`select * from temporaries where jenis = 'minuman' and status =1`)
+
+        let x = data[0]
+        let y = []
+        for(let i =0;i<x.length;i++){
+            let sama = false
+            for(let j =0;j<y.length;j++){
+                 if(x[i]["mejaId"]==y[j]["mejaId"]){
+                    y[j]["pesanan"].push({"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"]})
+                    sama=true
+                }   
+            }
+            if(sama==false){
+                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"]}]})
+            }
+        }
+        
+        
+        
+        res.json({data:y})
     }
 
     static all(req,res){

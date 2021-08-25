@@ -54,7 +54,7 @@ class Controller{
     }
 
     static listByTanggal(req,res){
-        const{tanggal}=req.params
+        const{tanggal}=req.body
         pembelian.findAll({
             where:{
                 tanggal:tanggal
