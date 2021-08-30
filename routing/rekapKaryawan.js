@@ -5,7 +5,7 @@ const {authorizationAdmin} = require('../middleware/authorization')
 
 router.post('/register',authentification,controller.register)
 router.get('/listRekap',authentification,controller.listRekap)
-router.get('/listByBulanTahun/:bulan/:tahun',controller.listByBulanTahun)
+router.post('/listByBulanTahun',controller.listByBulanTahun)
 router.post('/update',authentification,controller.update)
 router.post('/delete',authentification,controller.delete)
 
