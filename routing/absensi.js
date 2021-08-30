@@ -6,6 +6,7 @@ const {authorizationAdmin} = require('../middleware/authorization')
 
 router.post('/register',authentification,authorizationAdmin,controller.register)
 router.post('/update',authentification,authorizationAdmin,controller.update)
+router.get('/listByBulan/:bulan',controller.listByBulan)
 
 
 module.exports=router

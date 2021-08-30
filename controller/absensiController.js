@@ -1,4 +1,5 @@
 const absensi = require('../model/absensiModel')
+const sq = require('../config/connection')
 
 class Controller{
 
@@ -38,6 +39,12 @@ class Controller{
         .catch(err=>{
             res.json("err")
         })
+    }
+
+    static async listByBulan(req,res){
+        const {bulan}= req.params
+        let data = await sq.query(`select a.id as "absensiId",* from absensis a join karyawans k on a."karyawanId" = k.id  where EXTRACT(MONTH FROM a."tanggalAbsen") =${bulan}`)
+        res.json({data:data[0]})
     }
 }
 
