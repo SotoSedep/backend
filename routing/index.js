@@ -9,6 +9,7 @@ const rekapKaryawan=require('./rekapKaryawan')
 const pembelian = require('./pembelian')
 const setoran=require('./setoran')
 const absensi=require('./absensi')
+const rekapGaji=require('./rekapGaji')
 
 router.use('/menu',menu)
 router.use('/temporary',temporary)
@@ -20,5 +21,6 @@ router.use('/rekapKaryawan',rekapKaryawan)
 router.use('/pembelian',pembelian)
 router.use('/setoran',setoran)
 router.use('/absensi',absensi)
+router.use('/rekapGaji',rekapGaji)
 
 module.exports=router
