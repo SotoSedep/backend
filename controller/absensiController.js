@@ -43,7 +43,13 @@ class Controller{
 
     static async listByBulan(req,res){
         const {bulan}= req.params
-        let data = await sq.query(`select a.id as "absensiId",* from absensis a join karyawans k on a."karyawanId" = k.id  where EXTRACT(MONTH FROM a."tanggalAbsen") =${bulan}`)
+        let data = await sq.query(`select k.id ,k.nama,k."role" ,k.alamat ,k.handphone ,sum(absen) as "jumlahMasuk" from absensis a join karyawans k on a."karyawanId" = k.id  where EXTRACT(MONTH FROM a."tanggalAbsen") =${bulan} group by k.id`)
+        res.json({data:data[0]})
+    }
+
+    static async absensiByKaryawanId(req,res){
+        const{karyawanId}=req.params
+        let data = await sq.query(`select k.nama ,a."tanggalAbsen" ,a.absen from karyawans k join absensis a ON k.id = a."karyawanId" where k.id= ${karyawanId} order by "tanggalAbsen" `)
         res.json({data:data[0]})
     }
 }
