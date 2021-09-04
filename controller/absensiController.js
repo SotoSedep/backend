@@ -49,7 +49,7 @@ class Controller{
 
     static async absensiByKaryawanId(req,res){
         const{karyawanId,bulan,tahun}=req.params
-        let data = await sq.query(`select k.nama ,a."tanggalAbsen" ,a.absen from karyawans k join absensis a ON k.id = a."karyawanId" where k.id= ${karyawanId} and where EXTRACT(MONTH FROM a."tanggalAbsen") =${bulan} and EXTRACT(YEAR FROM a."tanggalAbsen") =${tahun} group by k.id order by "tanggalAbsen" `)
+        let data = await sq.query(`select k.nama ,a."tanggalAbsen" ,a.absen from karyawans k join absensis a ON k.id = a."karyawanId" where k.id= ${karyawanId} and  EXTRACT(MONTH FROM a."tanggalAbsen") = ${bulan} and EXTRACT(YEAR FROM a."tanggalAbsen") =${tahun} group by k.id,a."tanggalAbsen",a.absen order by "tanggalAbsen" `)
         res.json({data:data[0]})
     }
 }
