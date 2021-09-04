@@ -12,7 +12,7 @@ const absensi = sq.define('absensi',{
         type:DataTypes.INTEGER
     },
     tanggalAbsen:{
-        type:DataTypes.DATE
+        type:DataTypes.DATEONLY
     }
 },
 {
