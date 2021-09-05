@@ -53,7 +53,7 @@ class Controller{
 
     static async listBulanan(req,res){
         const {bulan,tahun}= req.params
-        let data = await sq.query(`select * from setorans s where EXTRACT(MONTH FROM tanggal) =${bulan} and EXTRACT(year FROM tanggal) = ${tahun}`)
+        let data = await sq.query(`select * from setorans s where EXTRACT(MONTH FROM tanggal) =${bulan} and EXTRACT(year FROM tanggal) = ${tahun} order by s."tanggal"`)
         res.json({data:data[0]})
     }
 }
