@@ -12,10 +12,16 @@ class Controller{
             }
         })
         .then(hasil=>{
-            rekapGaji.bulkCreate(bulk)
-            .then(hasil2=>{
-                res.json("sukses")
-            })
+            if(hasil.length){
+                res.json({message:"rekap gaji untuk bulan tersebut sudah ada"})
+            }
+            else{
+                rekapGaji.bulkCreate(bulk)
+                .then(hasil2=>{
+                    res.json("sukses")
+                })
+            }
+           
         })
         .catch(err=>{
             res.json(err)
@@ -28,15 +34,13 @@ class Controller{
             id:id
         }})
         .then(hasil=>{
-            rekapGaji.bulkCreate(bulk)
-            .then(hasil2=>{
-                res.json("sukses")
-            })
+          res.json({message:"sukses"})
         })
         .catch(err=>{
             res.json(err)
         })
     }
+
 
     static async listByBulan(req,res){
         const{bulan,tahun}=req.params
