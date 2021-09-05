@@ -135,7 +135,7 @@ class Controller{
     }
 
     static async listMinuman(req,res){
-        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id where t.jenis = 'minuman' and status =0`)
+        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id join mejas m2 on t."mejaId" = m2.id where (t.jenis ='minuman') and flagging =1`)
         // let data2 = await sq.query(`select * from temporaries where jenis = 'minuman' and status =1`)
 
         let x = data[0]
