@@ -29,8 +29,8 @@ class Controller{
     }
 
     static update(req,res){
-        const {id,gajiHarian,gajiBulanan,jumlahMasuk,bulan,tanggal}=req.body
-        rekapGaji.update({gajiHarian,gajiBulanan,jumlahMasuk,bulan,tanggal},{where:{
+        const {id,gajiHarian,gajiBulanan,jumlahMasuk,bulan,tanggal,cashBon}=req.body
+        rekapGaji.update({gajiHarian,gajiBulanan,jumlahMasuk,bulan,tanggal,cashBon},{where:{
             id:id
         }})
         .then(hasil=>{

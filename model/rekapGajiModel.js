@@ -22,6 +22,10 @@ const rekapGaji = sq.define('rekapGaji',{
     },
     tahun:{
         type:DataTypes.INTEGER
+    },
+    cashBon:{
+        type:DataTypes.INTEGER,
+        defaultValue:0
     }
 },
 {
