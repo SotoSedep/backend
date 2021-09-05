@@ -112,7 +112,7 @@ class Controller{
     }
 
     static async listMakananDanSoto(req,res){
-        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id join mejas m2 on t."mejaId" = m2.id where (t.jenis ='makanan' or t.jenis='soto') and flagging =1`)
+        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id join mejas m2 on t."mejaId" = m2.id where (t.jenis ='makanan' or t.jenis='soto') and (flagging =1 or flagging =3)`)
         // let data2 = await sq.query(`select * from temporaries where (jenis ='makanan' or jenis='soto') and status =1`)
         let x = data[0]
         let y = []
@@ -135,7 +135,7 @@ class Controller{
     }
 
     static async listMinuman(req,res){
-        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id join mejas m2 on t."mejaId" = m2.id where (t.jenis ='minuman') and flagging =1`)
+        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id join mejas m2 on t."mejaId" = m2.id where (t.jenis ='minuman') and (flagging =1 or flagging = 2)`)
         // let data2 = await sq.query(`select * from temporaries where jenis = 'minuman' and status =1`)
 
         let x = data[0]
@@ -215,7 +215,6 @@ class Controller{
         const {status,mejaId}= req.body
        
         temporary.update({
-    
             status:status
         },{
             where :{
@@ -227,35 +226,71 @@ class Controller{
         .then(respon=>{
             kirimKasir.kirimKasir()
             temporary.findAll({
-                where:{
+                where :{
                     mejaId:mejaId,
-                    status:0
+                    status:0,
+                    [Op.or]: [
+                        { jenis: "makanan" },
+                        { jenis: 'soto' }
+                      ]
                 }
             })
             .then(data2=>{
-               
-                if(data2.length){
-                  
-                    res.json({data2})
-                }
-                else{
-                
-                    meja.update({
-                        flagging:2
-                    },{
-                        where :{
-                            id:mejaId,
-                        }
-                    })
-                    .then(respon=>{
-                        gantiWarna.gantiWarna();
+                temporary.findAll({
+                    where :{
+                        mejaId:mejaId,
+                        status:0,
+                        jenis:"minuman"
+                    }
+                })
+                .then(data3=>{
+                    if(data2.length==0 && data3.length==0){
+                        meja.update({
+                            flagging:4
+                        },{
+                            where :{
+                                id:mejaId,
+                            }
+                        })
+                        .then(respon=>{
+                            gantiWarna.gantiWarna();
+                            res.json({message:"selesai"})
+                        })
+                    }
+                    else if(data2.length==0){
+                        meja.update({
+                            flagging:2
+                        },{
+                            where :{
+                                id:mejaId,
+                            }
+                        })
+                        .then(respon=>{
+                            gantiWarna.gantiWarna();
+                            res.json({message:"selesai"})
+                        })
+                    }
+                    else if(data3.length==0){
+                        meja.update({
+                            flagging:3
+                        },{
+                            where :{
+                                id:mejaId,
+                            }
+                        })
+                        .then(respon=>{
+                            gantiWarna.gantiWarna();
+                            res.json({message:"selesai"})
+                        })
+                    }
+                    else{
                         res.json({message:"selesai"})
-                    })
-                    
-                    
-                }
+                    }
+                })
             })
-        })
+
+                })
+                
         
         .catch(err=>{
             res.json({message:err})
