@@ -112,7 +112,7 @@ class Controller{
     }
 
     static async listMakananDanSoto(req,res){
-        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id join mejas m2 on t."mejaId" = m2.id where (t.jenis ='makanan' or t.jenis='soto') and flagging =0`)
+        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id join mejas m2 on t."mejaId" = m2.id where (t.jenis ='makanan' or t.jenis='soto') and flagging =1`)
         // let data2 = await sq.query(`select * from temporaries where (jenis ='makanan' or jenis='soto') and status =1`)
         let x = data[0]
         let y = []
