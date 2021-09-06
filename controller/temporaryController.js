@@ -112,7 +112,7 @@ class Controller{
     }
 
     static async listMakananDanSoto(req,res){
-        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id join mejas m2 on t."mejaId" = m2.id where (t.jenis ='makanan' or t.jenis='soto') and (flagging =1 or flagging =3) order by t."createdAt" `)
+        let data = await sq.query(`select t.id as "temporaryId",* from temporaries t join menus m on t."menuId" = m.id join mejas m2 on t."mejaId" = m2.id where (t.jenis ='makanan' or t.jenis='soto') and (flagging =1 or flagging =3) `)
         // let data2 = await sq.query(`select * from temporaries where (jenis ='makanan' or jenis='soto') and status =1`)
         let x = data[0]
         let y = []
@@ -129,11 +129,9 @@ class Controller{
             }
         }
         
-        // y.sort(function (a, b) {
-        //     return a.pesanan[0]["temporaryId"] - b.pesanan[0]["temporaryId"]
-        //   });
+       
         
-        // res.json({data:y})
+        res.json({data:y})
     }
 
     static async listMinuman(req,res){
