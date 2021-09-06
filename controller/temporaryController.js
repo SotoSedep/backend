@@ -318,17 +318,27 @@ class Controller{
             temporary.findAll({
                 where:{
                     mejaId:mejaId,
-                    status:0
+                    status:0,
+                    jenis:"minuman"
                 }
             })
             .then(data2=>{
-                if(data2.length){
-                    
-                    res.json("sukses")
+                if(data2.length){                
+                    meja.update({
+                        flagging:2
+                    },{
+                        where :{
+                            id:mejaId,
+                        }
+                    })
+                    .then(respon=>{
+                        gantiWarna.gantiWarna();
+                        res.json({message:"selesai"})
+                    })
                 }
                 else{
                     meja.update({
-                        flagging:2
+                        flagging:4
                     },{
                         where :{
                             id:mejaId,
@@ -367,17 +377,30 @@ class Controller{
             temporary.findAll({
                 where:{
                     mejaId:mejaId,
-                    status:0
+                    status:0,
+                    [Op.or]: [
+                        { jenis: "makanan" },
+                        { jenis: 'soto' }
+                      ]
                 }
             })
             .then(data2=>{
                 if(data2.length){
-                    
-                    res.json("sukses")
+                    meja.update({
+                        flagging:3
+                    },{
+                        where :{
+                            id:mejaId,
+                        }
+                    })
+                    .then(respon=>{
+                        gantiWarna.gantiWarna();
+                        res.json({message:"selesai"})
+                    })
                 }
                 else{
                     meja.update({
-                        flagging:2
+                        flagging:4
                     },{
                         where :{
                             id:mejaId,
