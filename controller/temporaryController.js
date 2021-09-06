@@ -120,12 +120,12 @@ class Controller{
             let sama = false
             for(let j =0;j<y.length;j++){
                  if(x[i]["mejaId"]==y[j]["mejaId"]){
-                    y[j]["pesanan"].push({"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"]})
+                    y[j]["pesanan"].push({"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"]})
                     sama=true
                 }   
             }
             if(sama==false){
-                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"]}]})
+                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"]}]})
             }
         }
         
@@ -144,12 +144,12 @@ class Controller{
             let sama = false
             for(let j =0;j<y.length;j++){
                  if(x[i]["mejaId"]==y[j]["mejaId"]){
-                    y[j]["pesanan"].push({"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"]})
+                    y[j]["pesanan"].push({"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"]})
                     sama=true
                 }   
             }
             if(sama==false){
-                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"]}]})
+                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"]}]})
             }
         }
         
@@ -244,6 +244,8 @@ class Controller{
                     }
                 })
                 .then(data3=>{
+                    console.log(data2.length)
+                    console.log(data3.length)
                     if(data2.length==0 && data3.length==0){
                         meja.update({
                             flagging:4
