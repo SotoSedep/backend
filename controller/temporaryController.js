@@ -120,12 +120,12 @@ class Controller{
             let sama = false
             for(let j =0;j<y.length;j++){
                  if(x[i]["mejaId"]==y[j]["mejaId"]){
-                    y[j]["pesanan"].push({"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"]})
+                    y[j]["pesanan"].push({"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"],"jenis":x[i]["jenis"],"keterangan":x[i]["keterangan"]})
                     sama=true
                 }   
             }
             if(sama==false){
-                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"]}]})
+                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"],"jenis":x[i]["jenis"],"keterangan":x[i]["keterangan"]}]})
             }
         }
         
@@ -144,12 +144,12 @@ class Controller{
             let sama = false
             for(let j =0;j<y.length;j++){
                  if(x[i]["mejaId"]==y[j]["mejaId"]){
-                    y[j]["pesanan"].push({"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"]})
+                    y[j]["pesanan"].push({"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"],"keterangan":x[i]["keterangan"]})
                     sama=true
                 }   
             }
             if(sama==false){
-                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"]}]})
+                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"]}],"keterangan":x[i]["keterangan"]})
             }
         }
         
