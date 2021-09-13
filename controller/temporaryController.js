@@ -149,7 +149,7 @@ class Controller{
                 }   
             }
             if(sama==false){
-                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"]}],"keterangan":x[i]["keterangan"]})
+                y.push({"mejaId":x[i]["mejaId"],"karyawanId":x[i]["karyawanId"],"namaPemesan":x[i]["atasNama"],"pesanan":[{"jumlah":x[i]["jumlah"],"status":x[i]["status"],"temporaryId":x[i]["temporaryId"],"namaMenu":x[i]["namaMenu"],"mejaId":x[i]["mejaId"],"keterangan":x[i]["keterangan"]}]})
             }
         }
         
