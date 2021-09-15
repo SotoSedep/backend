@@ -11,6 +11,7 @@ const setoran=require('./setoran')
 const absensi=require('./absensi')
 const rekapGaji=require('./rekapGaji')
 const masterBarangBeli= require('./masterBarangBeli')
+const masterPengeluaran=require('./masterPengeluaran')
 
 router.use('/menu',menu)
 router.use('/temporary',temporary)
@@ -24,5 +25,6 @@ router.use('/setoran',setoran)
 router.use('/absensi',absensi)
 router.use('/rekapGaji',rekapGaji)
 router.use('/masterBarangBeli',masterBarangBeli)
+router.use('/masterPengeluaran',masterPengeluaran)
 
 module.exports=router
