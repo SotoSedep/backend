@@ -8,5 +8,6 @@ router.post('/register',authentification,authorizationAdmin,controller.register)
 router.post('/update',authentification,authorizationAdmin,controller.update)
 router.post('/listByTanggal',controller.listByTanggal)
 router.get('/absensiByKaryawanId/:karyawanId/:bulan/:tahun',controller.absensiByKaryawanId)
+router.post('/rekapKaryawanBulanan',controller.rekapKaryawanBulanan)
 
 module.exports=router

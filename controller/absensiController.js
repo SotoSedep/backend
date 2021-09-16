@@ -89,6 +89,12 @@ class Controller{
         let data = await sq.query(`select k.nama ,a."tanggalAbsen" ,a.absen from karyawans k join absensis a ON k.id = a."karyawanId" where k.id= ${karyawanId} and  EXTRACT(MONTH FROM a."tanggalAbsen") = ${bulan} and EXTRACT(YEAR FROM a."tanggalAbsen") =${tahun} group by k.id,a."tanggalAbsen",a.absen order by "tanggalAbsen" `)
         res.json({data:data[0]})
     }
+
+    static async rekapKaryawanBulanan(req,res){
+        const{bulan,tahun} = req.body
+        let data = sq.query(`select k2.nama ,k2.handphone ,k2."role" ,k2."norekKaryawan",k2."namaBank",sum(absen) as "totalAbsen", sum("absenStghHari") as "totalStghHari",sum(gaji) as "totalGaji", sum(kasbon) as "totalKasbon" from absensis a join karyawans k2 on a."karyawanId" = k2.id where EXTRACT(MONTH FROM a."tanggalAbsen") = ${bulan} and EXTRACT(YEAR FROM a."tanggalAbsen") = ${tahun} group by k2.id `)
+        res.json({data:data[0]})
+    }
 }
 
 module.exports = Controller
