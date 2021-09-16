@@ -1,20 +1,20 @@
 const { DataTypes } = require('sequelize')
 const sq = require('../config/connection')
-
 const setoran = require('./setoranModel')
-const poolPembelian = sq.define('poolPembelian',{
+
+const poolPemasukan = sq.define('poolPemasukan',{
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    namaPembelian:{
+    namaPemasukan:{
         type:DataTypes.STRING
     },
-    hargaPembelian:{
+    hargaPemasukan:{
         type:DataTypes.INTEGER
     },
-    jumlahPembelian:{
+    jumlahPemasukan:{
         type:DataTypes.INTEGER,
         defaultValue:1
     }
@@ -23,8 +23,8 @@ const poolPembelian = sq.define('poolPembelian',{
 
 });
 
-poolPembelian.belongsTo(setoran)
-setoran.hasMany(poolPembelian)
+poolPemasukan.belongsTo(setoran)
+setoran.hasMany(poolPemasukan)
 
-poolPembelian.sync({ alter: true })
-module.exports = poolPembelian
+poolPemasukan.sync({ alter: true })
+module.exports = poolPemasukan
