@@ -53,9 +53,11 @@ class Controller{
 
     static async listBulanan(req,res){
         const {bulan,tahun}= req.params
-        let data = await sq.query(`select * from setorans s where EXTRACT(MONTH FROM tanggal) =${bulan} and EXTRACT(year FROM tanggal) = ${tahun} order by s."tanggal"`)
+        let data = await sq.query(`select s.*,sum(pp."hargaPemasukan") as "totalPemasukan", sum(pp2."hargaPembelian") as "totalPembelian",sum(pp3."hargaPengeluaran") as "totalPengeluaran" from setorans s join "poolPemasukans" pp on s.id = pp."setoranId" join "poolPembelians" pp2 on pp2."setoranId" =s.id join "poolPengeluarans" pp3  on pp3."setoranId" =s.id where EXTRACT(MONTH FROM tanggal) =${bulan
+        } and EXTRACT(year FROM tanggal) = ${tahun} group by s.id order by s.id `)
         res.json({data:data[0]})
     }
+
 }
 
 module.exports=Controller
