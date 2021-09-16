@@ -13,6 +13,15 @@ const absensi = sq.define('absensi',{
     },
     tanggalAbsen:{
         type:DataTypes.DATEONLY
+    },
+    absenStghHari:{
+        type:DataTypes.INTEGER
+    },
+    gaji:{
+        type:DataTypes.INTEGER
+    },
+    kasbon:{
+        type:DataTypes.INTEGER
     }
 },
 {

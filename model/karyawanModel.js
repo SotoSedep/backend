@@ -33,6 +33,12 @@ const karyawan = sq.define('karyawan',{
     },
     gajiKaryawan:{
         type:DataTypes.INTEGER
+    },
+    norekKaryawan:{
+        type:DataTypes.STRING
+    },
+    namaBank:{
+        type:DataTypes.STRING
     }
     
 },

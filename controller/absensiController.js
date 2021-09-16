@@ -3,6 +3,29 @@ const sq = require('../config/connection')
 
 class Controller{
 
+
+    /*
+        bulk[
+            {
+                "tanggalAbsen":2021/8/8,
+                "karyawanId":1,
+                "absen":1,
+                "absenStghHari":0,
+                "gaji":20000,
+                "kasbon":100000
+            },
+            {
+                "tanggalAbsen":2021/8/8,
+                "karyawanId":2,
+                "absen":0,
+                "absenStghHari":0,
+                "gaji":0,
+                "kasbon":0
+            }
+        ]
+    */
+
+
     static register(req,res){
         const {bulk}= req.body
        absensi.findAll({where:{
@@ -41,10 +64,23 @@ class Controller{
         })
     }
 
-    static async listByBulan(req,res){
-        const {bulan,tahun}= req.params
+    static async listByTanggal(req,res){
+        const {tanggal,bulan,tahun}= req.body
+        let searchTanggal=""
+        let searchBulan =""
+        let searchTahun=""
       
-        let data = await sq.query(`select k.id ,k.nama,k."role" ,k.alamat ,k.handphone,k."gajiKaryawan" ,sum(absen) as "jumlahMasuk" from absensis a join karyawans k on a."karyawanId" = k.id  where EXTRACT(MONTH FROM a."tanggalAbsen") =${bulan} and EXTRACT(YEAR FROM a."tanggalAbsen") =${tahun} group by k.id`)
+        if(tanggal){
+            searchTanggal= `and EXTRACT(DAY FROM a."tanggalAbsen") =${tanggal}`
+        }
+        if(bulan){
+            searchBulan= `and EXTRACT(DAY FROM a."tanggalAbsen") =${bulan}`
+        }
+        if(bulan){
+            searchTahun= `and EXTRACT(DAY FROM a."tanggalAbsen") =${tahun}`
+        }
+
+        let data = await sq.query(`select k.id ,k.nama,k."role" ,k.alamat ,k.handphone,k."gajiKaryawan" ,sum(absen) as "jumlahMasuk" from absensis a join karyawans k on a."karyawanId" = k.id  where id <> 0 ${searchTanggal} ${searchBulan} ${searchTahun}`)
         res.json({data:data[0]})
     }
 
