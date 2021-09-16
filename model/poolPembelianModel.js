@@ -14,6 +14,10 @@ const poolPembelian = sq.define('poolPembelian',{
     },
     hargaPembelian:{
         type:DataTypes.INTEGER
+    },
+    jumlahPembelian:{
+        type:DataTypes.INTEGER,
+        defaultValue:0
     }
 },
 {
