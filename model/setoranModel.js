@@ -22,8 +22,11 @@ const setoran = sq.define('setoran',{
     setor:{
         type:DataTypes.INTEGER
     },
-    beras:{
+    pembelian:{
         type:DataTypes.INTEGER
+    },
+    namaKasir:{
+        type:DataTypes.STRING
     }
 },
 {

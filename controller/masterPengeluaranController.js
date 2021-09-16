@@ -1,4 +1,4 @@
-const masterPengeluaran = require('../model/masterBarangBeliModel')
+const masterPengeluaran = require('../model/masterPengeluaranModel')
 
 class Controller{
 

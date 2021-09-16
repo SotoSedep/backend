@@ -12,6 +12,7 @@ const absensi=require('./absensi')
 const rekapGaji=require('./rekapGaji')
 const masterBarangBeli= require('./masterBarangBeli')
 const masterPengeluaran=require('./masterPengeluaran')
+const poolPembelian = require('./poolPembelian')
 
 router.use('/menu',menu)
 router.use('/temporary',temporary)
@@ -26,5 +27,6 @@ router.use('/absensi',absensi)
 router.use('/rekapGaji',rekapGaji)
 router.use('/masterBarangBeli',masterBarangBeli)
 router.use('/masterPengeluaran',masterPengeluaran)
+router.use('/poolPembelian',poolPembelian)
 
 module.exports=router

@@ -4,7 +4,7 @@ const sq = require('../config/connection')
 class Controller{
 
     static register(req,res){
-        const{tanggal,shift,pendapatan,pengeluaran,setor,beras}= req.body
+        const{tanggal,shift,pendapatan,pengeluaran,setor,namaKasir}= req.body
         setoran.findAll({where:{
             tanggal:tanggal,
             shift:shift
@@ -14,7 +14,7 @@ class Controller{
                 res.json("data sudah ada")
             }
             else{
-                setoran.create({tanggal,shift,pendapatan,pengeluaran,setor,beras})
+                setoran.create({tanggal,shift,pendapatan,pengeluaran,setor,namaKasir})
                 .then(data=>{
                     res.json("sukses")
                 })
@@ -26,8 +26,8 @@ class Controller{
     }
 
     static update(req,res){
-        const{id,tanggal,shift,pendapatan,pengeluaran,setor,beras}= req.body
-        setoran.update({tanggal,shift,pendapatan,pengeluaran,setor,beras},{where:{
+        const{id,tanggal,shift,pendapatan,pengeluaran,setor,namaKasir}= req.body
+        setoran.update({tanggal,shift,pendapatan,pengeluaran,setor,namaKasir},{where:{
             id:id
         }})
         .then(data=>{
