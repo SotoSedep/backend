@@ -13,16 +13,7 @@ const setoran = sq.define('setoran',{
     shift:{
         type:DataTypes.INTEGER
     },
-    pendapatan:{
-        type:DataTypes.INTEGER
-    },
-    pengeluaran:{
-        type:DataTypes.INTEGER
-    },
     setor:{
-        type:DataTypes.INTEGER
-    },
-    pembelian:{
         type:DataTypes.INTEGER
     },
     namaKasir:{
