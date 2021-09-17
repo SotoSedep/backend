@@ -14,7 +14,7 @@ class Controller{
                 res.json("data sudah ada")
             }
             else{
-                setoran.create({tanggal,shift,pendapatan,pengeluaran,setor,namaKasir})
+                setoran.create({tanggal,shift,namaKasir})
                 .then(data=>{
                     res.json("sukses")
                 })
@@ -27,7 +27,7 @@ class Controller{
 
     static update(req,res){
         const{id,tanggal,shift,namaKasir}= req.body
-        setoran.update({tanggal,shift,pendapatan,pengeluaran,setor,namaKasir},{where:{
+        setoran.update({tanggal,shift,namaKasir},{where:{
             id:id
         }})
         .then(data=>{
