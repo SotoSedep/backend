@@ -4,7 +4,7 @@ const sq = require('../config/connection')
 class Controller{
 
     static register(req,res){
-        const{tanggal,shift,pendapatan,pengeluaran,setor,namaKasir}= req.body
+        const{tanggal,shift,namaKasir}= req.body
         setoran.findAll({where:{
             tanggal:tanggal,
             shift:shift
@@ -26,7 +26,7 @@ class Controller{
     }
 
     static update(req,res){
-        const{id,tanggal,shift,pendapatan,pengeluaran,setor,namaKasir}= req.body
+        const{id,tanggal,shift,namaKasir}= req.body
         setoran.update({tanggal,shift,pendapatan,pengeluaran,setor,namaKasir},{where:{
             id:id
         }})
