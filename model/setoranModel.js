@@ -18,6 +18,10 @@ const setoran = sq.define('setoran',{
     },
     namaKasir:{
         type:DataTypes.STRING
+    },
+    totalKasbon:{
+        type:DataTypes.INTEGER,
+        defaultValue:0
     }
 },
 {

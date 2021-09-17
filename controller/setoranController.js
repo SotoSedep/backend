@@ -26,8 +26,8 @@ class Controller{
     }
 
     static update(req,res){
-        const{id,tanggal,shift,namaKasir}= req.body
-        setoran.update({tanggal,shift,namaKasir},{where:{
+        const{id,tanggal,shift,namaKasir,totalKasbon}= req.body
+        setoran.update({tanggal,shift,namaKasir,totalKasbon},{where:{
             id:id
         }})
         .then(data=>{
@@ -55,6 +55,12 @@ class Controller{
         const {bulan,tahun}= req.params
         let data = await sq.query(`select s.*,sum(pp."hargaPemasukan") as "totalPemasukan", sum(pp2."hargaPembelian") as "totalPembelian",sum(pp3."hargaPengeluaran") as "totalPengeluaran" from setorans s join "poolPemasukans" pp on s.id = pp."setoranId" join "poolPembelians" pp2 on pp2."setoranId" =s.id join "poolPengeluarans" pp3  on pp3."setoranId" =s.id where EXTRACT(MONTH FROM tanggal) =${bulan
         } and EXTRACT(year FROM tanggal) = ${tahun} group by s.id order by s.id `)
+        res.json({data:data[0]})
+    }
+    static async listHarian(req,res){
+        const {tanggal,bulan,tahun}= req.params
+        let data = await sq.query(`select s.*,sum(pp."hargaPemasukan") as "totalPemasukan", sum(pp2."hargaPembelian") as "totalPembelian",sum(pp3."hargaPengeluaran") as "totalPengeluaran" from setorans s join "poolPemasukans" pp on s.id = pp."setoranId" join "poolPembelians" pp2 on pp2."setoranId" =s.id join "poolPengeluarans" pp3  on pp3."setoranId" =s.id where EXTRACT(MONTH FROM tanggal) =${bulan
+        } and EXTRACT(year FROM tanggal) = ${tahun} and  EXTRACT(day FROM tanggal) = ${tanggal} group by s.id order by s.id `)
         res.json({data:data[0]})
     }
 
