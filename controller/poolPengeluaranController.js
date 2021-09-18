@@ -24,7 +24,7 @@ bulk:[
 
     static register(req,res){
         const{bulk}= req.body
-        poolPengeluaran.create(bulk)
+        poolPengeluaran.bulkCreate(bulk)
         .then(respon=>{
             res.json({message:"sukses"}) 
         })

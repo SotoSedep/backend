@@ -24,7 +24,7 @@ bulk:[
 
     static register(req,res){
         const{bulk}= req.body
-        poolPembelian.create(bulk)
+        poolPembelian.bulkCreate(bulk)
         .then(respon=>{
             res.json({message:"sukses"}) 
         })
