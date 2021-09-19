@@ -36,7 +36,7 @@ class Controller{
             }
             else{
                 
-                karyawan.create({username:username, password:encryptedPassword,nama:nama,alamat:alamat,role:role,handphone:handphone}, {returning: true}).then(respon =>{
+                karyawan.create({username:username, password:encryptedPassword,nama:nama,alamat:alamat,role:role,handphone:handphone,norekKaryawan,namaBank}, {returning: true}).then(respon =>{
                 res.json(respon)
              })
              .catch(err=>{

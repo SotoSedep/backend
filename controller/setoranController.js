@@ -53,13 +53,13 @@ class Controller{
 
     static async listBulanan(req,res){
         const {bulan,tahun}= req.params
-        let data = await sq.query(`select s.*,sum(distinct pp."hargaPemasukan") as "totalPemasukan", sum(distinct pp2."hargaPembelian") as "totalPembelian",sum(distinct pp3."hargaPengeluaran") as "totalPengeluaran" from setorans s left join "poolPemasukans" pp on s.id = pp."setoranId" left join "poolPembelians" pp2 on pp2."setoranId" =s.id left join "poolPengeluarans" pp3  on pp3."setoranId" =s.id where EXTRACT(MONTH FROM tanggal) =${bulan} and EXTRACT(year FROM tanggal) = ${tahun} group by s.id order by s.id `)
+        let data = await sq.query(`select s.*,sum(distinct pp."hargaPemasukan") as "totalPemasukan", sum(distinct pp2."hargaPembelian") as "totalPembelian",sum(distinct pp3."hargaPengeluaran") as "totalPengeluaran" from setorans s left join "poolPemasukans" pp on s.id = pp."setoranId" left join "poolPembelians" pp2 on pp2."setoranId" =s.id left join "poolPengeluarans" pp3  on pp3."setoranId" =s.id where EXTRACT(MONTH FROM tanggal + interval '7 hour') =${bulan} and EXTRACT(year FROM tanggal + interval '7 hour') = ${tahun} group by s.id order by s.id `)
         res.json({data:data[0]})
     }
     static async listHarian(req,res){
         const {tanggal,bulan,tahun}= req.params
         console.log(tanggal,bulan,tahun)
-        let data = await sq.query(`select s.*,sum(distinct pp."hargaPemasukan") as "totalPemasukan", sum(distinct pp2."hargaPembelian") as "totalPembelian",sum(distinct pp3."hargaPengeluaran") as "totalPengeluaran" from setorans s left join "poolPemasukans" pp on s.id = pp."setoranId" left join "poolPembelians" pp2 on pp2."setoranId" =s.id left join "poolPengeluarans" pp3  on pp3."setoranId" =s.id where EXTRACT(MONTH FROM tanggal) = ${bulan} and EXTRACT(year FROM tanggal) = ${tahun} and  EXTRACT(day FROM tanggal) = ${tanggal} group by s.id order by s.id `)
+        let data = await sq.query(`select s.*,sum(distinct pp."hargaPemasukan") as "totalPemasukan", sum(distinct pp2."hargaPembelian") as "totalPembelian",sum(distinct pp3."hargaPengeluaran") as "totalPengeluaran" from setorans s left join "poolPemasukans" pp on s.id = pp."setoranId" left join "poolPembelians" pp2 on pp2."setoranId" =s.id left join "poolPengeluarans" pp3  on pp3."setoranId" =s.id where EXTRACT(MONTH FROM tanggal + interval '7 hour') = ${bulan} and EXTRACT(year FROM tanggal + interval '7 hour') = ${tahun} and  EXTRACT(day FROM tanggal + interval '7 hour') = ${tanggal} group by s.id order by s.id `)
         res.json({data:data[0]})
     }
 
