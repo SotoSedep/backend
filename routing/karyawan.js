@@ -10,6 +10,7 @@ router.get('/profile/:id',authentification,controller.profile)
 router.post('/update/:id',authentification,controller.update)
 router.delete('/delete/:id',authentification,authorizationAdmin,controller.delete)
 router.get('/all',authentification,authorizationAdmin,controller.all)
+router.get('/testKaryawan',controller.testKaryawan)
 
 
 module.exports=router

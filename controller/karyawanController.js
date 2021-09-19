@@ -2,6 +2,7 @@ const karyawan = require('../model/karyawanModel')
 const bcrypt = require('../helper/bcrypt')
 const jwt = require('../helper/jwt')
 const { Op } = require("sequelize")
+const sq = require('../config/connection')
 
 function createAdmin() {
     let adminpass = bcrypt.hashPassword("soto1234")
@@ -128,7 +129,9 @@ class Controller{
             nama:nama,
             alamat:alamat,
             handphone:handphone,
-            role:role
+            role:role,
+            norekKaryawan,
+            namaBank
 
         },{
             where :{
@@ -159,6 +162,13 @@ class Controller{
         .catch(err=>{
             res.json(err)
         })
+    }
+
+    static async testKaryawan(req,res){
+        const{tanggal}= req.body
+        let data = await sq.query(`select * from karyawans where extract(day from "createdAt" + interval '7 hour' )=19`)
+  
+        res.json({tanggal19:data[0]})
     }
 }
 

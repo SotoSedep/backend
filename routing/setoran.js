@@ -9,6 +9,7 @@ router.get('/listHarian/:tanggal/:bulan/:tahun',authentification,controller.list
 router.post('/update',authentification,controller.update)
 router.post('/delete',authentification,controller.delete)
 router.post('/listHarian2',authentification,controller.listHarian2)
+router.post('/detailsSetoranById',authentification,controller.detailsSetoranById)
 
 
 module.exports=router
