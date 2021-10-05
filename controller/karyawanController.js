@@ -23,7 +23,7 @@ createAdmin()
 class Controller{
     
     static register(req, res){
-        const {username,password,nama,alamat,role,handphone,norekKaryawan,namaBank}= req.body
+        const {username,password,nama,alamat,role,handphone,norekKaryawan,namaBank,gajiKaryawan}= req.body
         
         let encryptedPassword = bcrypt.hashPassword(password)
         karyawan.findAll({
@@ -36,7 +36,7 @@ class Controller{
             }
             else{
                 
-                karyawan.create({username:username, password:encryptedPassword,nama:nama,alamat:alamat,role:role,handphone:handphone,norekKaryawan,namaBank}, {returning: true}).then(respon =>{
+                karyawan.create({username:username, password:encryptedPassword,nama:nama,alamat:alamat,role:role,handphone:handphone,norekKaryawan,namaBank,gajiKaryawan}, {returning: true}).then(respon =>{
                 res.json(respon)
              })
              .catch(err=>{
@@ -122,7 +122,7 @@ class Controller{
     static update(req,res){
         console.log(req.body)
         const {id} = req.params
-        const {password,nama,alamat,role,handphone,norekKaryawan,namaBank}= req.body
+        const {password,nama,alamat,role,handphone,norekKaryawan,namaBank,gajiKaryawan}= req.body
         
         karyawan.update({
             password:password,
@@ -131,7 +131,7 @@ class Controller{
             handphone:handphone,
             role:role,
             norekKaryawan,
-            namaBank
+            namaBank,gajiKaryawan
 
         },{
             where :{
