@@ -46,6 +46,23 @@ class Controller{
          
       }
 
+      static resetPassword(req,res){
+          const{id}= req.body
+          let passwordFosan = bcrypt.hashPassword("fosan")
+          karyawan.update({password:passwordFosan},{
+              where:{
+                  id:id
+              }
+          })
+          .then(data=>{
+              res.json({message:"sukses"})
+          })
+          .catch(err=>{
+              res.json({message:err})
+          })
+
+      }
+
       static login(req,res){
         const{username,password}= req.body
         karyawan.findAll({
