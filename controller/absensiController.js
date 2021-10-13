@@ -74,10 +74,10 @@ class Controller{
             searchTanggal= `and EXTRACT(DAY FROM a."tanggalAbsen"+ interval '7 hour') =${tanggal}`
         }
         if(bulan){
-            searchBulan= `and EXTRACT(DAY FROM a."tanggalAbsen"+ interval '7 hour') =${bulan}`
+            searchBulan= `and EXTRACT(MONTH FROM a."tanggalAbsen"+ interval '7 hour') =${bulan}`
         }
-        if(bulan){
-            searchTahun= `and EXTRACT(DAY FROM a."tanggalAbsen"+ interval '7 hour') =${tahun}`
+        if(tahun){
+            searchTahun= `and EXTRACT(YEAR FROM a."tanggalAbsen"+ interval '7 hour') =${tahun}`
         }
 
         let data = await sq.query(`select k.id ,k.nama,k."role" ,k.alamat ,k.handphone,k."gajiKaryawan" ,sum(absen) as "jumlahMasuk" from absensis a join karyawans k on a."karyawanId" = k.id  where id <> 0 ${searchTanggal} ${searchBulan} ${searchTahun}`)
