@@ -86,14 +86,14 @@ class Controller{
 
     static async absensiByKaryawanId(req,res){
         const{karyawanId,bulan,tahun}=req.params
-        let data = await sq.query(`select k.nama ,a."tanggalAbsen" ,a.absen from karyawans k join absensis a ON k.id = a."karyawanId" where k.id= ${karyawanId} and  EXTRACT(MONTH FROM a."tanggalAbsen"+ interval '7 hour') = ${bulan} and EXTRACT(YEAR FROM a."tanggalAbsen" + interval '7 hour') =${tahun} group by k.id,a.id order by "tanggalAbsen" `)
+        let data = await sq.query(`select k.nama ,a."tanggalAbsen" ,a."absenStghHari" ,a.absen from karyawans k join absensis a ON k.id = a."karyawanId" where k.id= ${karyawanId} and  EXTRACT(MONTH FROM a."tanggalAbsen"+ interval '7 hour') = ${bulan} and EXTRACT(YEAR FROM a."tanggalAbsen" + interval '7 hour') =${tahun} group by k.id,a.id`)
         res.json({data:data[0]})
     }
 
     static async rekapKaryawanBulanan(req,res){
         const{bulan,tahun} = req.body
        
-        let data = await sq.query(`select k2.id as "karyawanId",k2.nama ,a."absenStghHari" ,k2.handphone ,k2."role" ,k2."norekKaryawan",k2."namaBank",sum(absen) as "totalAbsen", sum("absenStghHari") as "totalStghHari",sum(gaji) as "totalGaji", sum(kasbon) as "totalKasbon" from absensis a join karyawans k2 on a."karyawanId" = k2.id where EXTRACT(MONTH FROM a."tanggalAbsen" + interval '7 hour') = ${bulan} and EXTRACT(YEAR FROM a."tanggalAbsen" + interval '7 hour') = ${tahun} group by k2.id `)
+        let data = await sq.query(`select k2.id as "karyawanId",k2.nama ,a."absenStghHari" ,k2.handphone ,k2."role" ,k2."norekKaryawan",k2."namaBank",sum(absen) as "totalAbsen", sum("absenStghHari") as "totalStghHari",sum(gaji) as "totalGaji", sum(kasbon) as "totalKasbon" from absensis a join karyawans k2 on a."karyawanId" = k2.id where EXTRACT(MONTH FROM a."tanggalAbsen" + interval '7 hour') = ${bulan} and EXTRACT(YEAR FROM a."tanggalAbsen" + interval '7 hour') = ${tahun} group by k2.id,a.id `)
         res.json({data:data[0]})
     }
 }
