@@ -71,8 +71,8 @@ class Controller{
 
     static async listByBulanTahun(req,res){
         const{bulan,tahun}=req.body
-        let data = await sq.query(`SELECT * from "tanggalGarung" where EXTRACT(MONTH FROM p."tanggalMulaiPelatihan" interval '7 hour' = ${bulan} and EXTRACT(YEAR FROM p."tanggalMulaiPelatihan" interval '7 hour' = ${tahun}`)
-        res.json({message:"sukses",data})
+        let data = await sq.query(`SELECT * from "pembelianGarungs" p where  EXTRACT(MONTH FROM p."tanggalGarung" + interval '7 hour') =${bulan} and EXTRACT(year FROM p."tanggalGarung" + interval '7 hour') =${tahun}`)
+        res.json({message:"sukses",data:data[0]})
     }
 }
 
