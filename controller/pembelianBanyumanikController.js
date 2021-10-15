@@ -5,8 +5,9 @@ class Controller{
 
     static register(req,res){
         const {bulk}= req.body
+        // console.log(bulk[0].tanggalBanyumanik)
         pembelianBanyumanik.findAll({where:{
-            tanggal:bulk[0].tanggal
+            tanggalBanyumanik:bulk[0].tanggalBanyumanik
         }})
         .then(hasil=>{
             if(hasil.length){
@@ -15,7 +16,7 @@ class Controller{
             else{
                 pembelianBanyumanik.bulkCreate(bulk)
                 .then(data=>{
-                    res.json(data)
+                    res.json({message:"sukses"})
                 })
             }
         })
@@ -28,7 +29,7 @@ class Controller{
     static update(req,res){
         const {bulk}= req.body
         pembelianBanyumanik.destroy({where:{
-            tanggal:bulk[0].tanggal
+            tanggalBanyumanik:bulk[0].tanggalBanyumanik
         }})
         .then(data=>{
             pembelianBanyumanik.bulkCreate(bulk)

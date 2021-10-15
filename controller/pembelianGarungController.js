@@ -6,7 +6,7 @@ class Controller{
     static register(req,res){
         const {bulk}= req.body
         pembelianGarung.findAll({where:{
-            tanggal:bulk[0].tanggal
+            tanggalGarung:bulk[0].tanggalGarung
         }})
         .then(hasil=>{
             if(hasil.length){
@@ -28,7 +28,7 @@ class Controller{
     static update(req,res){
         const {bulk}= req.body
         pembelianGarung.destroy({where:{
-            tanggal:bulk[0].tanggal
+            tanggalGarung:bulk[0].tanggalGarung
         }})
         .then(data=>{
             pembelianGarung.bulkCreate(bulk)
