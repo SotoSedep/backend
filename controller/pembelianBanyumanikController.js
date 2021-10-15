@@ -43,9 +43,9 @@ class Controller{
     }
 
     static delete(req,res){
-        const{tanggal}= req.body
+        const{tanggalBanyumanik}= req.body
         pembelianBanyumanik.destroy({where:{
-            tanggal:tanggal
+            tanggalBanyumanik:tanggalBanyumanik
         }})
         .then(data=>{
             res.json({message:"sukses"})
@@ -56,10 +56,11 @@ class Controller{
     }
 
     static listByTanggal(req,res){
-        const{tanggal}=req.body
+        const{tanggalBanyumanik}=req.body
+        console.log(tanggalBanyumanik)
         pembelianBanyumanik.findAll({
             where:{
-                tanggal:tanggal
+                tanggalBanyumanik:tanggalBanyumanik
             }
         })
         .then(data=>{
