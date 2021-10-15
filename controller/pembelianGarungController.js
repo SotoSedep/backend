@@ -15,7 +15,7 @@ class Controller{
             else{
                 pembelianGarung.bulkCreate(bulk)
                 .then(data=>{
-                    res.json(data)
+                    res.json({message:"sukses"})
                 })
             }
         })
@@ -33,7 +33,7 @@ class Controller{
         .then(data=>{
             pembelianGarung.bulkCreate(bulk)
             .then(data=>{
-                res.json(data)
+                res.json({message:"sukses"})
             })
         })
         .catch(err=>{
@@ -47,7 +47,7 @@ class Controller{
             tanggal:tanggal
         }})
         .then(data=>{
-            res.json("sukses")
+            res.json({message:"sukses"})
         })
         .catch(err=>{
             res.json(err)
