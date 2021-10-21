@@ -119,21 +119,22 @@ class Controller{
     //     })
     // }
 
-    static all(req,res){
-        
-        karyawan.findAll({
-            where:{
-                role: {
-                    [Op.or]: ["waitress", "kasir"]
-                }
-            }
-        },{returning:true})
-        .then(respon=>{
-            res.json({respon})
-        })
-        .catch(err=>{
-            res.json(err)
-        })
+    static async all(req,res){
+    let data= await sq.query(`select * from "karyawans" k where k."role" <> 'admin'`)
+    res.json({respon:data[0]})
+        // karyawan.findAll({
+        //     where:{
+        //         role: {
+        //             [Op.or]: ["waitress", "kasir"]
+        //         }
+        //     }
+        // },{returning:true})
+        // .then(respon=>{
+        //     res.json({respon})
+        // })
+        // .catch(err=>{
+        //     res.json(err)
+        // })
     }
 
     static update(req,res){
