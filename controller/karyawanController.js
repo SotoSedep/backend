@@ -168,7 +168,7 @@ class Controller{
     }
 
     static delete(req,res){
-        const{id}= req.params
+        const{id}= req.body
         karyawan.destroy({
             where : {
                 id: id
