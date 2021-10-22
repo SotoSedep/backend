@@ -43,7 +43,7 @@ const karyawan = sq.define('karyawan',{
     
 },
 {
-paranoid:true
+// paranoid:true
 });
 
 karyawan.sync({ alter: true })
