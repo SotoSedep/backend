@@ -5,9 +5,9 @@ class Controller{
     
 
     static regUpdate(req,res){
-        const {bulk,tanggalPercabang,namaCabang}= req.body
+        const {bulk,tanggalPerCabang,namaCabang}= req.body
         pembelianPerCabang.destroy({where:{
-            tanggalPercabang:tanggalPercabang,
+            tanggalPerCabang:tanggalPerCabang,
             namaCabang:namaCabang
         }})
         .then(data=>{
@@ -23,10 +23,10 @@ class Controller{
 
 
     static listByTanggal(req,res){
-        const{tanggalPercabang,namaCabang}=req.body
+        const{tanggalPerCabang,namaCabang}=req.body
         pembelianPerCabang.findAll({
             where:{
-                tanggalPercabang:tanggalPercabang,
+                tanggalPerCabang:tanggalPerCabang,
                 namaCabang:namaCabang
             }
         })
