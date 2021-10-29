@@ -12,7 +12,8 @@ class Controller{
                 "absen":1,
                 "absenStghHari":0,
                 "gaji":20000,
-                "kasbon":100000
+                "kasbon":100000,
+                "cabangAbsensi":"banyumanik"
             },
             {
                 "tanggalAbsen":2021/8/8,
@@ -20,38 +21,19 @@ class Controller{
                 "absen":0,
                 "absenStghHari":0,
                 "gaji":0,
-                "kasbon":0
+                "kasbon":0,
+                "cabangAbsensi":"banyumanik"
             }
         ]
     */
 
 
-    static register(req,res){
-        const {bulk}= req.body
-       absensi.findAll({where:{
-           tanggalAbsen:bulk[0].tanggalAbsen
-       }})
-       .then(hasil=>{
-           if(hasil.length){
-               res.json({message:"data sudah ada"})
-           }
-           else{
-            absensi.bulkCreate(bulk)
-            .then(data=>{
-                res.json("sukses")
-            })
-           
-           }
-       })
-       .catch(err=>{
-        res.json("err")
-    })
-    }
 
-    static update(req,res){
-        const{bulk}= req.body
+    static regUpdate(req,res){
+        const{bulk,tanggalAbsen,cabangAbsensi}= req.body
         absensi.destroy({where:{
-            tanggalAbsen:bulk[0].tanggalAbsen
+            tanggalAbsen:tanggalAbsen,
+            cabangAbsensi:cabangAbsensi
         }})
         .then(hasil=>{
             absensi.bulkCreate(bulk)
@@ -65,7 +47,7 @@ class Controller{
     }
 
     static async listByTanggal(req,res){
-        const {tanggal,bulan,tahun}= req.body
+        const {tanggal,bulan,tahun,cabangAbsensi}= req.body
         let searchTanggal=""
         let searchBulan =""
         let searchTahun=""
@@ -80,7 +62,7 @@ class Controller{
             searchTahun= `and EXTRACT(YEAR FROM a."tanggalAbsen"+ interval '7 hour') =${tahun}`
         }
 
-        let data = await sq.query(`select k.id ,k.nama,k."role" ,k.alamat ,k.handphone,k."gajiKaryawan" ,sum(absen) as "jumlahMasuk" from absensis a join karyawans k on a."karyawanId" = k.id  where id <> 0 ${searchTanggal} ${searchBulan} ${searchTahun}`)
+        let data = await sq.query(`select k.id ,k.nama,k."role" ,k.alamat ,k.handphone,k."gajiKaryawan" ,sum(absen) as "jumlahMasuk" from absensis a join karyawans k on a."karyawanId" = k.id  where id <> 0 ${searchTanggal} ${searchBulan} ${searchTahun} and a."namaCabang"='${cabangAbsensi}'`)
         res.json({data:data[0]})
     }
 
