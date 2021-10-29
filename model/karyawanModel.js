@@ -39,6 +39,9 @@ const karyawan = sq.define('karyawan',{
     },
     namaBank:{
         type:DataTypes.STRING
+    },
+    cabangKaryawan:{
+        type:DataTypes.STRING
     }
     
 },

@@ -17,6 +17,7 @@ const poolPengeluaran = require('./poolPengeluaran')
 const poolPemasukan = require('./poolPemasukan')
 const pembelianGarung=require('./pembelianGarung')
 const pembelianBanyumanik=require('./pembelianBanyumanik')
+const pembelianPerCabang = require('./pembelianPerCabang')
 
 router.use('/menu',menu)
 router.use('/temporary',temporary)
@@ -36,5 +37,6 @@ router.use('/poolPengeluaran',poolPengeluaran)
 router.use('/poolPemasukan',poolPemasukan)
 router.use('/pembelianGarung',pembelianGarung)
 router.use('/pembelianBanyumanik',pembelianBanyumanik)
+router.use('/pembelianPerCabang',pembelianPerCabang)
 
 module.exports=router
