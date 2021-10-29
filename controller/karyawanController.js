@@ -23,7 +23,7 @@ createAdmin()
 class Controller{
     
     static register(req, res){
-        const {username,password,nama,alamat,role,handphone,norekKaryawan,namaBank,gajiKaryawan}= req.body
+        const {username,password,nama,alamat,role,handphone,norekKaryawan,namaBank,gajiKaryawan,cabangKaryawan}= req.body
         
         let encryptedPassword = bcrypt.hashPassword(password)
         karyawan.findAll({
@@ -36,7 +36,7 @@ class Controller{
             }
             else{
                 
-                karyawan.create({username:username, password:encryptedPassword,nama:nama,alamat:alamat,role:role,handphone:handphone,norekKaryawan,namaBank,gajiKaryawan}, {returning: true}).then(respon =>{
+                karyawan.create({username, password:encryptedPassword,nama,alamat,role,handphone,norekKaryawan,namaBank,gajiKaryawan,cabangKaryawan}, {returning: true}).then(respon =>{
                 res.json(respon)
              })
              .catch(err=>{
@@ -140,16 +140,10 @@ class Controller{
     static update(req,res){
         console.log(req.body)
         const {id} = req.params
-        const {password,nama,alamat,role,handphone,norekKaryawan,namaBank,gajiKaryawan}= req.body
+        const {password,nama,alamat,role,handphone,norekKaryawan,namaBank,gajiKaryawan,cabangKaryawan}= req.body
         
         karyawan.update({
-            password:password,
-            nama:nama,
-            alamat:alamat,
-            handphone:handphone,
-            role:role,
-            norekKaryawan,
-            namaBank,gajiKaryawan
+            password,nama,alamat,handphone,role,norekKaryawan,namaBank,gajiKaryawan,cabangKaryawan
 
         },{
             where :{
