@@ -5,9 +5,10 @@ class Controller{
     
 
     static regUpdate(req,res){
-        const {bulk,tanggalPercabang}= req.body
+        const {bulk,tanggalPercabang,namaCabang}= req.body
         pembelianPerCabang.destroy({where:{
-            tanggalPercabang:tanggalPercabang
+            tanggalPercabang:tanggalPercabang,
+            namaCabang:namaCabang
         }})
         .then(data=>{
             pembelianPerCabang.bulkCreate(bulk)

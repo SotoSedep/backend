@@ -22,6 +22,9 @@ const absensi = sq.define('absensi',{
     },
     kasbon:{
         type:DataTypes.INTEGER
+    },
+    lokasiAbsensi:{
+        type:DataTypes.STRING
     }
 },
 {
