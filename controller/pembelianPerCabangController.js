@@ -1,5 +1,5 @@
 const pembelianPerCabang=require('../model/pembelianPerCabangModel')
-
+const sq = require('../config/connection')
 class Controller{
 
     
