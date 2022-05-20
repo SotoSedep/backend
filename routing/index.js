@@ -18,6 +18,8 @@ const poolPemasukan = require('./poolPemasukan')
 const pembelianGarung=require('./pembelianGarung')
 const pembelianBanyumanik=require('./pembelianBanyumanik')
 const pembelianPerCabang = require('./pembelianPerCabang')
+const masterBarangGrafik = require('./masterBarangGrafik')
+const poolBarangGrafik=require('./poolBarangGrafik')
 
 router.use('/menu',menu)
 router.use('/temporary',temporary)
@@ -38,5 +40,7 @@ router.use('/poolPemasukan',poolPemasukan)
 router.use('/pembelianGarung',pembelianGarung)
 router.use('/pembelianBanyumanik',pembelianBanyumanik)
 router.use('/pembelianPerCabang',pembelianPerCabang)
+router.use('/masterBarangGrafik',masterBarangGrafik)
+router.use('/poolBarangGrafik',poolBarangGrafik)
 
 module.exports=router

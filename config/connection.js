@@ -5,6 +5,7 @@ const sequelize = new Sequelize('SotoSedep', 'postgres', 'grafika9', {
     port: 5432,
     dialect: 'postgres',
     logging:false,
+    timezone: "+07:00"
   });
 
   module.exports =  sequelize;
