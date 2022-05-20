@@ -8,5 +8,6 @@ router.post('/register',authentification,authorizationAdmin,controller.register)
 router.post('/update',authentification,authorizationAdmin,controller.update)
 router.post('/delete',authentification,authorizationAdmin,controller.delete)
 router.get('/listPerbulan/:bulan/:tahun',controller.listPerbulan)
+router.get('/listPertahun/:tahun',controller.listPertahun)
 
 module.exports=router

@@ -83,7 +83,22 @@ class Controller{
             join "masterBarangGrafiks" mbg on mbg.id = pbg."masterBarangGrafikId" 
             where  date_part('year',pbg.tanggal)= ${tahun}
             group by date_part('month',pbg.tanggal),mbg.id  order by bulan`,s)
-            res.status(200).json({ status: 200, message: "sukses", data})
+
+            let hasilnya=[]
+            for(let i=0;i<data.length;i++){
+                let ada = false
+                for(let j=0;j<hasilnya.length;j++){
+                    if(data[i].bulan==hasilnya[j].bulan){
+                        ada=true;
+                        hasilnya[j].barangnya.push({"barang_id":data[i].barang_id,"sum":data[i].sum,"namaBarang":data[i].namaBarang})
+                    }
+                }
+                if(ada==false){
+                    hasilnya.push({"bulan":data[i].bulan,barangnya:[{"barang_id":data[i].barang_id,"sum":data[i].sum,"namaBarang":data[i].namaBarang}]})
+                }
+            }
+
+            res.status(200).json({ status: 200, message: "sukses", hasilnya})
         } catch (error) {
             console.log(error);
             res.status(500).json({ status: 500, message: "gagal", data: error})
