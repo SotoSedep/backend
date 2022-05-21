@@ -105,6 +105,19 @@ class Controller{
         }
     }
 
+    static async listPerhari(req,res){
+        const {tahun,bulan,tanggal}= req.params
+        try {
+            let data = await sq.query(`select pbg.id as pool_id,* from "poolBarangGrafiks" pbg 
+            join "masterBarangGrafiks" mbg on pbg."masterBarangGrafikId" = mbg.id
+            where date_part('year',pbg.tanggal)= ${tahun} and date_part('month',pbg.tanggal)=${bulan} and date_part('day',pbg.tanggal)=${tanggal}`,s)
+            res.status(200).json({ status: 200, message: "sukses", data})
+        } catch (error) {
+            res.status(500).json({ status: 500, message: "gagal", data: error})
+        }
+     
+    }
+
 }
 
 module.exports=Controller
