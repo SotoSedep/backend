@@ -27,7 +27,7 @@ app.use(express.json())
 
 app.use('/', routing)
 
-const port = 3006
+const port = 8015
 
 http.listen(port, () => {
   console.log(`socket telah tersambung pada port : ${port}`)
